@@ -184,6 +184,7 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 
 [![Abrir en Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sgevatschnaider/GraphAI-Data-Science-ML/blob/main/notebooks/Clase_Introduccion_BigData_2025.ipynb)
 
+[![Ver en GitHub Pages](https://img.shields.io/badge/Ver%20en-GitHub%20Pages-blue?style=for-the-badge&logo=github)](https://sgevatschnaider.github.io/GraphAI-Data-Science-ML/blog/tiktok-algoritmo.html)
 
 ---
 
