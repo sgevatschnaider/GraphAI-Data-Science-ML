@@ -196,7 +196,7 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 
 🔹 **Sistemas de Recomendación y TIKTOK**  
 
-[![Abrir en Colab]([https://colab.research.google.com/assets/colab-badge.svg)]([https://colab.research.google.com/drive/1eqcIUhjwrKRj4_4rFv_tg7vRYkxkjuUE])
+[![Abrir en Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1eqcIUhjwrKRj4_4rFv_tg7vRYkxkjuUE)
 
 ---
 
