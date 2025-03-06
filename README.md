@@ -178,6 +178,12 @@ jupyter notebook
 
 Abre el notebook de tu interés y ejecuta los ejemplos interactivos.  
 
+## Notebooks Interactivos  
+
+Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:  
+
+[![Abrir en Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sgevatschnaider/GraphAI-Data-Science-ML/blob/main/notebooks/Clase_introducción_BiG_Data_Primer_semestre_2025.ipynb)
+
 ---
 
 ## **Colaboración**  
