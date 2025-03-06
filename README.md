@@ -159,7 +159,8 @@ Esta animación muestra el recorrido en un **dodecaedro** usando **BFS (Búsqued
 
 ## **Recursos Adicionales**  
 
-- [Introduction to Graph Theory - Robin J. Wilson](https://www.maths.ed.ac.uk/~v1ranick/papers/wilsongraph.pdf)  
+- [Introduction to Graph Theory - Robin J. Wilson](https://www.maths.ed.ac.uk/~v1ranick/papers/wilsongraph.pdf)
+- [Introductory Graph Theory  por Jacques Verstraete](https://cseweb.ucsd.edu/~dakane/Math154/154-textbook.pdf)  
 - [Graph Neural Networks: A Review](https://arxiv.org/abs/1901.00596)  
 - [NetworkX Documentation](https://networkx.org/)  
 
