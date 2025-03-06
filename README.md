@@ -194,7 +194,9 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 🔹 **Introducción a Big Data en Google Colab**  
 [![Abrir en Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sgevatschnaider/GraphAI-Data-Science-ML/blob/main/notebooks/Clase_Introduccion_BigData_2025.ipynb)  
 
-[![Abrir en Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sgevatschnaider/GraphAI-Data-Science-ML/blob/main/notebooks/Clase_Introduccion_BigData_2025.ipynb)  
+🔹 **Sistemas de Recomendación y TIKTOK**  
+
+[![Abrir en Colab]([https://colab.research.google.com/assets/colab-badge.svg)]([https://colab.research.google.com/drive/1eqcIUhjwrKRj4_4rFv_tg7vRYkxkjuUE])
 
 ---
 
