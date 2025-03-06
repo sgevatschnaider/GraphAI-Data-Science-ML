@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+        content="Cómo TikTok Sabe lo que Quieres Ver / How TikTok Knows What You Want to Watch" />
+  <title>Cómo TikTok Sabe lo que Quieres Ver: IA y Matemáticas en su Algoritmo</title>
+  
+  <!-- Cargar MathJax (versión 3) para renderizar LaTeX -->
+  <script type="text/javascript" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+  </script>
+  
+  <!-- Fuente Google -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  
+  <style>
+    :root {
+      --primary-color: #007BFF;
+      --secondary-color: #0056b3;
+      --text-color: #333;
+      --background-color: #f4f4f4;
+      --container-bg: #fff;
+      --highlight-bg: #fff59d;
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      margin: 0;
+      padding: 20px;
+      background-color: var(--background-color);
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      background: var(--container-bg);
+      padding: 20px 30px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    h1 {
+      color: var(--primary-color);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    h2, h3, h4 {
+      color: var(--secondary-color);
+      margin-top: 30px;
+      margin-bottom: 10px;
+    }
+    
+    p {
+      margin-bottom: 16px;
+      text-align: justify;
+    }
+    
+    ul, ol {
+      margin-left: 20px;
+      margin-bottom: 1em;
+    }
+    
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    strong {
+      background-color: var(--highlight-bg);
+      padding: 0 4px;
+      border-radius: 3px;
+      color: #e60000;
+    }
+    
+    .link-button {
+      background-color: #28a745;
+      color: #fff;
+      padding: 8px 12px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .link-button:hover {
+      background-color: #218838;
+    }
+    
+    .language-widget {
+      background: var(--container-bg);
+      border-radius: 5px;
+      padding: 10px 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+      max-width: 300px;
+      margin: 0 auto 20px auto;
+      text-align: center;
+    }
+    
+    .language-widget h3 {
+      margin-top: 0;
+      margin-bottom: 0.5em;
+      font-size: 1rem;
+    }
+    
+    .language-widget button {
+      background-color: #0056b3;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      margin: 4px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .language-widget button:hover {
+      background-color: #003d85;
+    }
+    
+    /* Contenido por idioma (se oculta por defecto) */
+    #content-es, #content-en {
+      display: none;
+    }
+    
+    .lang {
+      animation: fadeIn 0.5s ease-in;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    /* Separador (para centrar imágenes o separar secciones) */
+    .separator {
+      text-align: center;
+      margin: 20px 0;
+      clear: both;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 16px;
+    }
+    
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    
+    th, td {
+      padding: 8px;
+      text-align: left;
+    }
+    
+    th {
+      background-color: var(--primary-color);
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <!-- Widget de idioma -->
+    <div class="language-widget">
+      <h3>🌐 Seleccionar idioma / Select Language</h3>
+      <button id="btn-es">Español</button>
+      <button id="btn-en">English</button>
+    </div>
+    
+    <main>
+      <!-- CONTENIDO EN ESPAÑOL -->
+      <div id="content-es" class="lang">
+        <h1>Cómo TikTok Sabe lo que Quieres Ver: Inteligencia Artificial y Matemáticas en su Algoritmo</h1>
+        
+        <!-- IMAGEN PRINCIPAL (ES) -->
+        <div class="separator">
+          <img 
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjcSGzr3kBBuSaCQ-PFYGqCkbPGykh0Y6AZcKbaUolMZ9eKMxG49nO8Mb13yyP68POd0dFMMgaoej5ay54C19V5xtIOoNHOpuHszhOqn4OIxGcFyScvooxA4UfdvGj1Y-SaEzHvvFcr_VyIh39IuSeHePoef7LpCAY-ywMdwCjoSK9WSTtklDOKDmzRrfU/s320/1a76c0f9-127a-454d-a3a8-9c2bce69ed80.png"
+            alt="Representación de TikTok en el centro como una red neuronal"
+            style="max-width:100%; height:auto;"
+          />
+        </div>
+        <p style="text-align: center; margin: 0.5em auto;">
+          <em>Representación de TikTok en el centro como una red neuronal</em>
+        </p>
+        
+        <h2>Índice</h2>
+        <ol>
+          <li>Introducción</li>
+          <li>¿Qué es TikTok y por qué es relevante?</li>
+          <li>¿Cómo funciona técnicamente el algoritmo de recomendación de TikTok?</li>
+          <li>Graph Neural Networks (GNN): Explicación técnica</li>
+          <li>Fórmula matemática del modelo de recomendación</li>
+          <li>Interpretación gráfica del modelo aplicado al Usuario A</li>
+          <li>Conclusión</li>
+          <li>Referencias</li>
+        </ol>
+        
+        <h2>Introducción</h2>
+        <p>
+          Los algoritmos de recomendación son un claro ejemplo del poder transformador de las matemáticas, con un impacto significativo en la sociedad, la economía y la política. Estos sistemas están presentes en múltiples plataformas digitales, moldeando la forma en que consumimos contenido y tomamos decisiones.
+        </p>
+        <p>
+          En mis clases sobre Big Data y Teoría de Grafos siempre busco conectar estos conceptos clave con ejemplos prácticos cercanos a los estudiantes. Uno de los ejemplos más populares y relevantes es el algoritmo de recomendaciones de TikTok.
+        </p>
+        <p>
+          Si bien el algoritmo exacto de TikTok es un secreto empresarial, diversas investigaciones académicas han analizado modelos similares basados en Graph Neural Networks (GNN). Estas redes neuronales avanzadas permiten generar recomendaciones altamente personalizadas, lo que explica la efectividad del sistema de TikTok.
+        </p>
+        
+        <h2>¿Qué es TikTok y por qué es relevante?</h2>
+        <p>
+          TikTok es una plataforma de redes sociales que permite a los usuarios crear, compartir y descubrir videos cortos. Desde su lanzamiento en 2016, la plataforma ha experimentado un crecimiento exponencial, superando los mil millones de usuarios activos mensuales en todo el mundo, convirtiéndose en una fuerza significativa en términos culturales, económicos y políticos.
+        </p>
+        
+        <h2>¿Cómo funciona técnicamente el algoritmo de recomendación de TikTok?</h2>
+        <p>
+          El algoritmo de TikTok se basa esencialmente en <strong>matemática aplicada</strong> mediante técnicas avanzadas de <strong>Machine Learning</strong> y análisis masivo de datos (<strong>Big Data</strong>). Si múltiples usuarios interactúan positivamente con tipos similares de videos (por ejemplo: Baile, Comedia, Tutoriales), el algoritmo recomienda automáticamente otros contenidos relacionados (como Lip Sync, Deportes o Bromas). Este enfoque se denomina <em>filtrado colaborativo</em> y permite realizar recomendaciones personalizadas a gran escala y en tiempo real.
+        </p>
+        
+        <h2>Graph Neural Networks (GNN): Explicación técnica</h2>
+        <p>
+          Las Graph Neural Networks son redes neuronales especializadas en manejar datos estructurados en forma de grafos. En estos grafos, los nodos representan entidades (usuarios y videos), mientras que las aristas capturan sus relaciones o interacciones. Las GNN aprenden representaciones (<em>embeddings</em>) mediante la agregación iterativa de información desde los nodos vecinos, facilitando recomendaciones altamente personalizadas.
+        </p>
+        
+        <h2>Fórmula matemática del modelo de recomendación</h2>
+        <p>
+          La puntuación final de recomendación integra tres elementos clave:
+        </p>
+        <p>
+          $$R = w_1 \cdot I + w_2 \cdot C + w_3 \cdot V$$
+        </p>
+        <ul>
+          <li>
+            <strong>I</strong> mide la interacción histórica mediante <em>embeddings</em>.
+          </li>
+          <li>
+            <strong>C</strong> evalúa las propiedades del contenido (tipo, duración).
+          </li>
+          <li>
+            <strong>V</strong> mide el potencial viral basado en interacciones 
+            (likes, comentarios, compartidos).
+          </li>
+          <li>
+            <strong>w<sub>1</sub>, w<sub>2</sub>, w<sub>3</sub></strong> son pesos 
+            entrenables que ajustan la importancia relativa de cada factor.
+          </li>
+        </ul>
+        
+        <h2>Interpretación gráfica del modelo aplicado al Usuario A</h2>
+        <div class="separator" style="text-align: center; padding: 1em 0;">
+          <img 
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi-KkBpJpHLLAm4hhDuaS94uuJFob_vLBC5SmL98Vm4XB6vcnX_TfEhVN3Jl3oVdfw6bIszivMIY8sBRaW__sw4wFEbC9igj2UnxRIWMkSnvBLz7B6eiOuP5CpyHUz0Ufu2PW6T55VuxjgymyP8pfwd-qJ89dqq3PFodpbwF9TvSZa7o06fbCZR5hFgbzE/s320/contrib_user_A.png"
+            alt="Gráfica explicativa del modelo para el Usuario A"
+            style="max-width:100%; height:auto;"
+          />
+          <p style="margin: 0.5em auto;">
+            <em>Contribución de cada término de la fórmula en la recomendación (Imagen A)</em>
+          </p>
+        </div>
+        <p><em>Fuente: Elaboración propia</em></p>
+        
+        <h2>Conclusión</h2>
+        <p>
+          El análisis del algoritmo de TikTok demuestra cómo la combinación de matemáticas avanzadas, Machine Learning y Big Data puede influir en nuestra experiencia digital de manera imperceptible pero profunda. La clave del éxito de TikTok radica en su capacidad para entender los intereses individuales de cada usuario con una precisión sorprendente, manteniéndolos enganchados a través de recomendaciones altamente personalizadas.
+        </p>
+        <p>
+          Comprender estos mecanismos no solo es esencial para quienes estudian Inteligencia Artificial y Ciencia de Datos, sino también para entender el alto impacto que tienen estos algoritmos.
+        </p>
+        
+        <h2>Referencias</h2>
+        <p>
+          <a class="link-button" href="https://www.tiktok.com/@tedtoks/video/7225292301864635694" target="_blank">
+            Ver Video (Explicación de Shou Chew)
+          </a>
+        </p>
+      </div>
+      
+      <!-- CONTENIDO EN INGLÉS -->
+      <div id="content-en" class="lang">
+        <h1>How TikTok Knows What You Want to Watch: Artificial Intelligence and Math in Its Algorithm</h1>
+        
+        <div class="separator">
+          <img 
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh-U0PbSFfAmxePBFJBC-XZb3ikw2BIAV5PdabD9olQqHKYhYad_pjRoIdhCSCKqzADVNVoSEPl55RLGp_sU05gd7T0IzXJ03ParCBJNYdsTl0agtoC7iLhYKBQ0DI6PabIxHY0HxeLZJwnWFbUTQ5k1wx1QrlcYTisD01zW7Dy56ku4LcFD0FlSnrsE0M/s320/1a76c0f9-127a-454d-a3a8-9c2bce69ed80.png"
+            alt="TikTok rendering in the center as a neural network"
+            style="max-width:100%; height:auto;"
+          />
+        </div>
+        <p style="text-align: center; margin: 0.5em auto;">
+          <em>TikTok rendering in the center as a neural network</em>
+        </p>
+        
+        <h2>Index</h2>
+        <ol>
+          <li>Introduction</li>
+          <li>What is TikTok and why is it relevant?</li>
+          <li>How does TikTok's recommendation algorithm technically work?</li>
+          <li>Graph Neural Networks (GNN): Technical Explanation</li>
+          <li>Recommendation Model Math Formula</li>
+          <li>Graphical interpretation of the model applied to User A</li>
+          <li>Conclusion</li>
+          <li>References</li>
+        </ol>
+        
+        <h2>Introduction</h2>
+        <p>
+          Recommendation algorithms are a clear example of the transformative power of mathematics, with a significant impact on society, economics, and politics. These systems are present across multiple digital platforms, shaping the way we consume content and make decisions.
+        </p>
+        <p>
+          In my classes on Big Data and Graph Theory, I always seek to connect these key concepts with practical examples close to students. One of the most popular and relevant examples is TikTok's recommendation algorithm.
+        </p>
+        <p>
+          While TikTok's exact algorithm is a trade secret, academic research has looked at similar models based on Graph Neural Networks (GNN). These advanced neural networks allow highly personalized recommendations, explaining the effectiveness of TikTok's system.
+        </p>
+        
+        <h2>What is TikTok and why is it relevant?</h2>
+        <p>
+          TikTok is a social media platform that allows users to create, share, and discover short videos. Since its launch in 2016, the platform has experienced exponential growth, surpassing one billion monthly active users worldwide, becoming a significant force culturally, economically, and politically.
+        </p>
+        
+        <h2>How does TikTok's recommendation algorithm technically work?</h2>
+        <p>
+          TikTok's algorithm is essentially <strong>applied mathematics</strong> through advanced <strong>Machine Learning</strong> techniques and massive <strong>Big Data</strong> analysis. If multiple users positively interact with similar types of videos (e.g., Dance, Comedy, Tutorials), the algorithm automatically recommends related content (such as Lip Sync, Sports, or Jokes). This approach is called <em>collaborative filtering</em>, enabling large-scale, real-time personalized recommendations.
+        </p>
+        
+        <h2>Graph Neural Networks (GNN): Technical Explanation</h2>
+        <p>
+          Graph Neural Networks are neural networks specialized in handling structured data in the form of graphs. Here, nodes represent entities (users and videos), while edges capture their relationships or interactions. GNNs learn representations (embeddings) by iteratively aggregating information from neighboring nodes, enabling highly personalized recommendations.
+        </p>
+        
+        <h2>Recommendation Model Math Formula</h2>
+        <p>
+          The final recommendation score integrates three key elements:
+        </p>
+        <p>
+          $$R = w_1 \cdot I + w_2 \cdot C + w_3 \cdot V$$
+        </p>
+        <ul>
+          <li>
+            <strong>I</strong> measures historical interaction through embeddings.
+          </li>
+          <li>
+            <strong>C</strong> evaluates content properties (type, duration).
+          </li>
+          <li>
+            <strong>V</strong> measures viral potential based on interactions 
+            (likes, comments, shares).
+          </li>
+          <li>
+            <strong>w<sub>1</sub>, w<sub>2</sub>, w<sub>3</sub></strong> are trainable 
+            weights that adjust the relative importance of each factor.
+          </li>
+        </ul>
+        
+        <h2>Graphical interpretation of the model applied to User A</h2>
+        <div class="separator" style="text-align: center; padding: 1em 0;">
+          <img 
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj9meyAfMG_c0HGWT90tUFb2Jg-3EGH7pK046mT_GoFltbUBqKtmrEPkvU_eMONuTzMNpFsuUUEEucpq7td8sTmL2XfPI0dUplVdicwAyI0QeGQyRc84VP8WozLeYG3tCTXavVJXSyUDNWxE44a2jXVodYlu5KnxgqlUStwCgeeycf0ew95efCjGWwXTYA/s320/contrib_user_A.png"
+            alt="Explanatory graph of the model for User A"
+            style="max-width:100%; height:auto;"
+          />
+          <p style="margin: 0.5em auto;">
+            <em>Contribution of each term of the formula to the recommendation (Image A)</em>
+          </p>
+        </div>
+        <p><em>Source: Own elaboration</em></p>
+        
+        <h2>Conclusion</h2>
+        <p>
+          TikTok's algorithm demonstrates how advanced mathematics, Machine Learning, and Big Data can profoundly shape our digital experience, often without us even noticing. TikTok's success lies in its remarkable ability to grasp individual user interests, keeping them engaged via highly personalized recommendations.
+        </p>
+        <p>
+          Understanding these mechanisms is essential for those studying Artificial Intelligence and Data Science, as well as for anyone interested in the substantial impact of these algorithms.
+        </p>
+        
+        <h2>References</h2>
+        <p>
+          <a class="link-button" href="https://www.tiktok.com/@tedtoks/video/7225292301864635694" target="_blank">
+            Watch Video (Shou Chew's Explanation)
+          </a>
+        </p>
+      </div>
+    </main>
+  </div>
+  
+  <script>
+    const btnEs = document.getElementById('btn-es');
+    const btnEn = document.getElementById('btn-en');
+    const contentEs = document.getElementById('content-es');
+    const contentEn = document.getElementById('content-en');
+    
+    // Por defecto: español visible, inglés oculto
+    contentEs.style.display = 'block';
+    contentEn.style.display = 'none';
+    document.title = 'Cómo TikTok Sabe lo que Quieres Ver: IA y Matemáticas en su Algoritmo';
+    document.documentElement.setAttribute('lang', 'es');
+    
+    btnEs.addEventListener('click', () => {
+      contentEs.style.display = 'block';
+      contentEn.style.display = 'none';
+      document.title = 'Cómo TikTok Sabe lo que Quieres Ver: IA y Matemáticas en su Algoritmo';
+      document.documentElement.setAttribute('lang', 'es');
+    });
+    
+    btnEn.addEventListener('click', () => {
+      contentEs.style.display = 'none';
+      contentEn.style.display = 'block';
+      document.title = 'How TikTok Knows What You Want to Watch: AI and Math in Its Algorithm';
+      document.documentElement.setAttribute('lang', 'en');
+    });
+  </script>
+</body>
+</html>
