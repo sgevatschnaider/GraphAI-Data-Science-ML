@@ -2,6 +2,15 @@
 
 Este repositorio está dedicado a explorar la **Teoría de Grafos y sus aplicaciones en Big Data e Inteligencia Artificial**. Contiene recursos teóricos, implementaciones prácticas y proyectos que demuestran cómo los **grafos** pueden utilizarse para resolver problemas complejos en **análisis de redes, optimización de algoritmos y modelado de estructuras de datos**.  
 
+## Acceso al Material Educativo
+
+**Este repositorio es solo de lectura para los estudiantes.**  
+Los alumnos pueden **descargar y utilizar** el material, pero **no pueden editarlo**.  
+Si tienes dudas o sugerencias, abre un **Issue** en GitHub.  
+
+ **Para descargar los archivos, usa los enlaces disponibles en la sección de contenidos.**
+
+
 Los **grafos** son fundamentales en diversos ámbitos como:  
 
 - **Redes sociales:** detección de comunidades, análisis de influencia (ejemplo: TikTok, Twitter).  
@@ -9,6 +18,7 @@ Los **grafos** son fundamentales en diversos ámbitos como:
 - **Ciberseguridad y detección de fraudes:** análisis de transacciones bancarias.  
 - **Optimización de rutas:** transporte y logística.  
 - **Machine Learning con Grafos:** Graph Neural Networks (GNNs) aplicadas a predicción de enlaces, clasificación de nodos y detección de anomalías.  
+
 
 ---
 
