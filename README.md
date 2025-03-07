@@ -2,15 +2,6 @@
 
 Este repositorio está dedicado a explorar la **Teoría de Grafos y sus aplicaciones en Big Data e Inteligencia Artificial**. Contiene recursos teóricos, implementaciones prácticas y proyectos que demuestran cómo los **grafos** pueden utilizarse para resolver problemas complejos en **análisis de redes, optimización de algoritmos y modelado de estructuras de datos**.  
 
-## Acceso al Material Educativo
-
-**Este repositorio es solo de lectura para los estudiantes.**  
-Los alumnos pueden **descargar y utilizar** el material, pero **no pueden editarlo**.  
-Si tienes dudas o sugerencias, abre un **Issue** en GitHub.  
-
- **Para descargar los archivos, usa los enlaces disponibles en la sección de contenidos.**
-
-
 Los **grafos** son fundamentales en diversos ámbitos como:  
 
 - **Redes sociales:** detección de comunidades, análisis de influencia (ejemplo: TikTok, Twitter).  
@@ -203,6 +194,13 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 | **Sistemas de Recomendación y TikTok** | [![🔍 Abrir en Colab](https://img.shields.io/badge/🔍%20Abrir%20en-Google%20Colab-orange?style=for-the-badge&logo=googlecolab)](https://colab.research.google.com/drive/1eqcIUhjwrKRj4_4rFv_tg7vRYkxkjuUE) |
 
 ---
+## Acceso al Material Educativo
+
+**Este repositorio es solo de lectura para los estudiantes.**  
+Los alumnos pueden **descargar y utilizar** el material, pero **no pueden editarlo**.  
+Si tienes dudas o sugerencias, abre un **Issue** en GitHub. 
+
+**Para descargar los archivos, usa los enlaces disponibles en la sección de contenidos.**
 
 ## **Colaboración**  
 
