@@ -176,6 +176,7 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 
 ## 📊 **Tabla de Contenidos**  
 
+
 | 📄 **Recurso** | 📥 **Acceso** |
 |--------------|------------|
 | **Introducción al BIG DATA** | [![📄 Descargar PDF](https://img.shields.io/badge/📄%20Descargar-Introducción%20al%20BIG%20DATA-red?style=for-the-badge)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/ba97ebadab45f05b0b5b3b4b5ca2fc7156a24691/BIG%20DATA%20INTRODUCCIÓN.pdf) |
@@ -183,7 +184,10 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 | **Introducción a Big Data en Google Colab** | [![🚀 Abrir en Colab](https://img.shields.io/badge/🚀%20Abrir%20en-Google%20Colab-orange?style=for-the-badge&logo=googlecolab)](https://colab.research.google.com/github/sgevatschnaider/GraphAI-Data-Science-ML/blob/main/notebooks/Clase_Introduccion_BigData_2025.ipynb) |
 | **Sistemas de Recomendación y TikTok** | [![🔍 Abrir en Colab](https://img.shields.io/badge/🔍%20Abrir%20en-Google%20Colab-orange?style=for-the-badge&logo=googlecolab)](https://colab.research.google.com/drive/1eqcIUhjwrKRj4_4rFv_tg7vRYkxkjuUE) |
 | **Evolución y Funcionamiento de los Sistemas de Recomendación** | [![📄 Descargar PDF](https://img.shields.io/badge/📄%20Descargar-Evolución%20y%20Funcionamiento%20de%20los%20Sistemas%20de%20Recomendación-red?style=for-the-badge)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/35919d0c04d0f2e447590877c33420003bfcfcc6/Evolución%20y%20Funcionamiento%20de%20los%20Sistemas%20de%20Recomendación.pdf) |
+| **BIG DATA INTRODUCCIÓN (Nuevo)** | [![📄 Descargar PDF](https://img.shields.io/badge/📄%20Descargar-BIG%20DATA%20INTRODUCCIÓN-red?style=for-the-badge)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/faec436535519a2b9d44cc4482021e107f59191e/BIG%20DATA%20INTRODUCCIÓN.pdf) |
+| **Sistemas de Recomendación (Nuevo)** | [![📄 Descargar PDF](https://img.shields.io/badge/📄%20Descargar-Sistemas%20de%20Recomendación-red?style=for-the-badge)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/faec436535519a2b9d44cc4482021e107f59191e/Sistemas_de_Recomendacion.pdf) |
 
+---
 
 ---
 ## Acceso al Material Educativo
