@@ -202,23 +202,7 @@ Si tienes dudas o sugerencias, abre un **Issue** en GitHub.
 
 **Para descargar los archivos, usa los enlaces disponibles en la sección de contenidos.**
 
-## **Colaboración**  
 
-¡Las contribuciones son bienvenidas! Sigue estos pasos:  
-
-1. Haz un **fork** del repositorio.  
-2. Crea una nueva rama:  
-   ```bash
-   git checkout -b feature/nueva-caracteristica
-   ```  
-3. Realiza tus cambios y súbelos:  
-   ```bash
-   git commit -m 'Añadir nueva característica'
-   git push origin feature/nueva-caracteristica
-   ```  
-4. Abre un **Pull Request** para revisión.  
-
----
 
 ## **Licencia**  
 
