@@ -198,6 +198,18 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 
 [![Abrir en Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1eqcIUhjwrKRj4_4rFv_tg7vRYkxkjuUE)
 
+
+## 📄 Material de la Materia
+
+Puedes descargar el material de introducción a Big Data aquí:
+
+<p align="center">
+  <a href="https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/ba97ebadab45f05b0b5b3b4b5ca2fc7156a24691/BIG%20DATA%20INTRODUCCI%C3%93N.pdf" download>
+    <img src="https://img.shields.io/badge/📄%20Descargar%20PDF-Introducción%20al%20BIG%20DATA-blue?style=for-the-badge" alt="Descargar PDF">
+  </a>
+</p>
+
+
 ---
 
 ## **Colaboración**  
