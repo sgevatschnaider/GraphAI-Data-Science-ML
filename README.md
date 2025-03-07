@@ -178,37 +178,19 @@ jupyter notebook
 
 Abre el notebook de tu interés y ejecuta los ejemplos interactivos.  
 
-## Notebooks Interactivos  
-
+# Notebooks Interactivos  
 Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:  
 
-## 📄 Artículos del Blog  "Economía y ética"
+---
 
-🔹 **Cómo TikTok Sabe lo que Quieres Ver**  
-[![Ver en GitHub Pages](https://img.shields.io/badge/Leer%20en-GitHub%20Pages-blue?style=for-the-badge&logo=github)](https://sgevatschnaider.github.io/GraphAI-Data-Science-ML/blog/tiktok-algoritmo.html)  
+## 📊 **Tabla de Contenidos**  
 
-🔹 **Introducción a Big Data en Google Colab** 
-
-## 📄 Notebooks Disponibles  
-
-🔹 **Introducción a Big Data en Google Colab**  
-[![Abrir en Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sgevatschnaider/GraphAI-Data-Science-ML/blob/main/notebooks/Clase_Introduccion_BigData_2025.ipynb)  
-
-🔹 **Sistemas de Recomendación y TIKTOK**  
-
-[![Abrir en Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1eqcIUhjwrKRj4_4rFv_tg7vRYkxkjuUE)
-
-
-## 📄 Material de la Materia
-
-Puedes descargar el material de introducción a Big Data aquí:
-
-<p align="center">
-  <a href="https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/ba97ebadab45f05b0b5b3b4b5ca2fc7156a24691/BIG%20DATA%20INTRODUCCI%C3%93N.pdf" download>
-    <img src="https://img.shields.io/badge/📄%20Descargar%20PDF-Introducción%20al%20BIG%20DATA-blue?style=for-the-badge" alt="Descargar PDF">
-  </a>
-</p>
-
+| 📄 **Recurso** | 📥 **Acceso** |
+|--------------|------------|
+| **Introducción al BIG DATA** | [![📄 Descargar PDF](https://img.shields.io/badge/📄%20Descargar-Introducción%20al%20BIG%20DATA-red?style=for-the-badge)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/ba97ebadab45f05b0b5b3b4b5ca2fc7156a24691/BIG%20DATA%20INTRODUCCI%C3%93N.pdf) |
+| **Cómo TikTok Sabe lo que Quieres Ver** | [![📖 Leer en GitHub Pages](https://img.shields.io/badge/📖%20Leer%20en-GitHub%20Pages-blue?style=for-the-badge&logo=github)](https://sgevatschnaider.github.io/GraphAI-Data-Science-ML/blog/tiktok-algoritmo.html) |
+| **Introducción a Big Data en Google Colab** | [![🚀 Abrir en Colab](https://img.shields.io/badge/🚀%20Abrir%20en-Google%20Colab-orange?style=for-the-badge&logo=googlecolab)](https://colab.research.google.com/github/sgevatschnaider/GraphAI-Data-Science-ML/blob/main/notebooks/Clase_Introduccion_BigData_2025.ipynb) |
+| **Sistemas de Recomendación y TikTok** | [![🔍 Abrir en Colab](https://img.shields.io/badge/🔍%20Abrir%20en-Google%20Colab-orange?style=for-the-badge&logo=googlecolab)](https://colab.research.google.com/drive/1eqcIUhjwrKRj4_4rFv_tg7vRYkxkjuUE) |
 
 ---
 
