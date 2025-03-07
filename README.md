@@ -107,16 +107,6 @@ output = model(data)
 print(output)
 ```
 
----
-
-## **Aplicaciones**  
-
-- `Revolucion_de_la_Credibilidad.ipynb`: Análisis basado en grafos aplicado a **credibilidad en redes sociales**.  
-- `Wheel_graphs.ipynb`: Estudio sobre los **grafos tipo rueda** y sus propiedades.  
-- `Proyecto_TikTok_GNN.ipynb`: **Modelo de recomendación de contenido en TikTok** con GNNs.  
-- `Fraude_Financiero_Grafos.ipynb`: **Detección de fraude financiero** usando teoría de grafos.  
-- `Optimización_Rutas.ipynb`: Algoritmos como **Dijkstra y A*** aplicados a logística y transporte.  
-
 Ejemplo: **Modelo de recomendación en TikTok con GNNs**  
 
 ```python
