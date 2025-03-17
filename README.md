@@ -174,7 +174,7 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 
 ---
 
-## 📊 **Tabla de Contenidos**  
+## 📊 **Introducción a la materia**  
 
 
 | 📄 **Recurso** | 📥 **Acceso** |
