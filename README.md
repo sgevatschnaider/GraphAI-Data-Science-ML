@@ -194,7 +194,7 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 |---------------|---------------|
 | **Big data clase 2025** | [![📄 Descargar PDF](https://img.shields.io/badge/📄%20Descargar-Big%20data%20clase%202025-red?style=for-the-badge)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/865757a0e290dd3a8692fbc8db8734a24da10964/Big%20data%20clase%202025.pdf) |
 | **Clase 2: Sharding y el Teorema CAP en Sistemas Distribuidos** | [![🔍 Ver en GitHub](https://img.shields.io/badge/🔍%20Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/865757a0e290dd3a8692fbc8db8734a24da10964/notebooks/%20Clase_2_Sharding_y_el_Teorema_CAP_en_Sistemas_Distribuidos_pynb.ipynb) |
-
+| **Clase 2: La_Computación_en_el_Borde_y_su_Aplicación_en_IoT_Drones_Inteligentes.ipynb** | [![🔍 Ver en GitHub](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/6af211740e78c4d4ea60b5bad0711c03403c65f5/notebooks/Clase_II_La_Computaci%C3%B3n_en_el_Borde_y_su_Aplicaci%C3%B3n_en_IoT_Drones_Inteligentes.ipynb) |
 ---
 ## Acceso al Material Educativo
 
