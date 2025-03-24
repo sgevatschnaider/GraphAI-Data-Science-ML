@@ -202,7 +202,8 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 
 | 📄 **Recurso** | 📥 **Acceso** |
 |---------------|---------------|
-| **BIG DATA - Clase Tercera: Grafos, Introducción, Teoría y Práctica** | [![🔍 Ver en GitHub](https://img.shields.io/badge/🔍%20Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/39263860674a57ce49e8891a0b4401d288d64778/notebooks/%20BIG_DATA__Clase_Tercera__Grafos_Introducci%C3%B3n_Teor%C3%ADa_y_Pr%C3%A1ctica_.ipynb) |
+| **BIG DATA - Clase Tercera: Grafos, Introducción, Teoría y Práctica** | [![ Ver en GitHub](https://img.shields.io/badge/%20Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/39263860674a57ce49e8891a0b4401d288d64778/notebooks/%20BIG_DATA__Clase_Tercera__Grafos_Introducci%C3%B3n_Teor%C3%ADa_y_Pr%C3%A1ctica_.ipynb) |
+| **Cuestionario Introducción Teoría de los Grafos** | [![🔍 Ver en GitHub](https://img.shields.io/badge/🔍%20Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/246c0d6d7e52493966382a0f60c4f65f358b5868/notebooks/Cuestionario_Clase_Tercera.ipynb) |
 
 ---
 ## Acceso al Material Educativo
