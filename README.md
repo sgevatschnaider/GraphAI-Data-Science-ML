@@ -197,7 +197,13 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 | **La Computación en el Borde y su Aplicación en IoT Drones Inteligentes** | [![🔍 Ver en GitHub](https://img.shields.io/badge/🔍%20Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/6af211740e78c4d4ea60b5bad0711c03403c65f5/notebooks/Clase_II_La_Computaci%C3%B3n_en_el_Borde_y_su_Aplicaci%C3%B3n_en_IoT_Drones_Inteligentes.ipynb) |
 
 ---
+## 📝 Clase 3
 
+| 📄 **Recurso** | 📥 **Acceso** |
+|---------------|---------------|
+| **BIG DATA - Clase Tercera: Grafos, Introducción, Teoría y Práctica** | [![🔍 Ver en GitHub](https://img.shields.io/badge/🔍%20Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/39263860674a57ce49e8891a0b4401d288d64778/notebooks/%20BIG_DATA__Clase_Tercera__Grafos_Introducci%C3%B3n_Teor%C3%ADa_y_Pr%C3%A1ctica_.ipynb) |
+
+---
 ## Acceso al Material Educativo
 
 **Este repositorio es solo de lectura para los estudiantes.**  
