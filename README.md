@@ -205,6 +205,13 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 | **BIG DATA - Clase Tercera: Grafos, Introducción, Teoría y Práctica** | [![ Ver en GitHub](https://img.shields.io/badge/%20Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/39263860674a57ce49e8891a0b4401d288d64778/notebooks/%20BIG_DATA__Clase_Tercera__Grafos_Introducci%C3%B3n_Teor%C3%ADa_y_Pr%C3%A1ctica_.ipynb) |
 | **Cuestionario Introducción Teoría de los Grafos** | [![🔍 Ver en GitHub](https://img.shields.io/badge/🔍%20Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/246c0d6d7e52493966382a0f60c4f65f358b5868/notebooks/Cuestionario_Clase_Tercera.ipynb) |
 
+
+## 📝 Clase 4
+
+| 📄 **Recurso** | 📥 **Acceso** |
+|---------------|---------------|
+| **BIG DATA - Clase Cuarta: Grafos dirigidos y cuestionario** | [![ Ver en GitHub](https://img.shields.io/badge/%20Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/2895ee6be76ca952476a28c9c81d185056f8f43b/notebooks/%20Grafos%20dirigidos.ipynb) |
+
 ---
 ## Acceso al Material Educativo
 
