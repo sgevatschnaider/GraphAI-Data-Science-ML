@@ -212,6 +212,13 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 |---------------|---------------|
 | **BIG DATA - Clase Cuarta: Grafos dirigidos y cuestionario** | [![ Ver en GitHub](https://img.shields.io/badge/%20Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/2895ee6be76ca952476a28c9c81d185056f8f43b/notebooks/%20Grafos%20dirigidos.ipynb) |
 
+
+## 📝 Clase 5
+
+| 📄 **Recurso** | 📥 **Acceso** |
+|---------------|---------------|
+| **BIG DATA - Clase Cuarta: Random surfer** | [![ Ver en GitHub](https://img.shields.io/badge/%20Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/fd2684f3294d47df41f226ea369175437801e46f/notebooks/random_surfer.ipynb)) |
+
 ---
 ## Acceso al Material Educativo
 
