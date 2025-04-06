@@ -217,7 +217,7 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 
 | 📄 **Recurso** | 📥 **Acceso** |
 |---------------|---------------|
-| **BIG DATA - Clase Cuarta: Random surfer** | [![ Ver en GitHub](https://img.shields.io/badge/%20Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/fd2684f3294d47df41f226ea369175437801e46f/notebooks/random_surfer.ipynb)) |
+| **BIG DATA - Clase Cuarta: Random surfer** | [![ Ver en GitHub](https://img.shields.io/badge/%20Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/fd2684f3294d47df41f226ea369175437801e46f/notebooks/random_surfer.ipynb) |
 
 ---
 ## Acceso al Material Educativo
