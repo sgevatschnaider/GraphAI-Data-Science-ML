@@ -213,13 +213,13 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 | **BIG DATA - Clase Cuarta: Grafos dirigidos y cuestionario** | [![ Ver en GitHub](https://img.shields.io/badge/%20Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/a24aad0eb97f24e7ea65edf886ecf2e11e47eb77/notebooks/BiG_DATA_GRAFOS_DIRIGIDOS_y_cuestionario.ipynb) |
 
 
+---
 ## 📝 Clase 5
 
 | 📄 **Recurso** | 📥 **Acceso** |
-|---------------|---------------|
-| **BIG DATA - Clase Cuarta: Random surfer** | [![ Ver en GitHub](https://img.shields.io/badge/%20Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/fd2684f3294d47df41f226ea369175437801e46f/notebooks/random_surfer.ipynb) |
+| -------------- | ------------- |
+| **BIG DATA - Clase Cuarta: Random surfer** | [![Ver en GitHub](https://img.shields.io/badge/Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/fd2684f3294d47df41f226ea369175437801e46f/notebooks/random_surfer.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1rgDj2ySwsnqKTGMD6azdeRMhtGsx_ri-?usp=sharing) |
 
----
 ## Acceso al Material Educativo
 
 **Este repositorio es solo de lectura para los estudiantes.**  
