@@ -209,8 +209,9 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 ## 📝 Clase 4
 
 | 📄 **Recurso** | 📥 **Acceso** |
-|---------------|---------------|
-| **BIG DATA - Clase Cuarta: Grafos dirigidos y cuestionario** | [![ Ver en GitHub](https://img.shields.io/badge/%20Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/a24aad0eb97f24e7ea65edf886ecf2e11e47eb77/notebooks/BiG_DATA_GRAFOS_DIRIGIDOS_y_cuestionario.ipynb) |
+| -------------- | ------------- |
+| **BIG DATA - Clase Cuarta: Grafos dirigidos y cuestionario** | [![Ver en GitHub](https://img.shields.io/badge/Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/a24aad0eb97f24e7ea65edf886ecf2e11e47eb77/notebooks/BiG_DATA_GRAFOS_DIRIGIDOS_y_cuestionario.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1V0ODsPGihaMgLFV-JpBGZDEhPmynbeVk?usp=sharing) |
+
 
 
 ---
