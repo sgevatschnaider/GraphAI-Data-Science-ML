@@ -221,6 +221,15 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 | -------------- | ------------- |
 | **BIG DATA - Clase Cuarta: Random surfer** | [![Ver en GitHub](https://img.shields.io/badge/Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/fd2684f3294d47df41f226ea369175437801e46f/notebooks/random_surfer.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1rgDj2ySwsnqKTGMD6azdeRMhtGsx_ri-?usp=sharing) |
 
+
+---
+## 📝 Clase 6
+
+| 📄 **Recurso** | 📥 **Acceso** |
+|---------------|---------------|
+| **BIG DATA - Clase Sexta: GAutómatas celulares unidimensionales, bidimensional y maquina de turing.** | [![Ver en GitHub](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/246c0d6d7e52493966382a0f60c4f65f358b5868/notebooks/Cuestionario_Clase_Tercera.ipynb)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/1ec229ff8b945095fa6a512b199390a6fc57a182/notebooks/Aut%C3%B3matas_celulares_unidimensionales%2C_bidimensional_y_maquina_de_turing.ipynb) |
+
+
 ## Acceso al Material Educativo
 
 **Este repositorio es solo de lectura para los estudiantes.**  
