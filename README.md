@@ -223,11 +223,7 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 
 
 ---
-## 📝 Clase 6
 
-| 📄 **Recurso** | 📥 **Acceso** |
-|---------------|---------------|
-| **BIG DATA - Clase Sexta: GAutómatas celulares unidimensionales, bidimensional y maquina de turing.** | [![Ver en GitHub](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/246c0d6d7e52493966382a0f60c4f65f358b5868/notebooks/Cuestionario_Clase_Tercera.ipynb)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/1ec229ff8b945095fa6a512b199390a6fc57a182/notebooks/Aut%C3%B3matas_celulares_unidimensionales%2C_bidimensional_y_maquina_de_turing.ipynb) |
 
 
 ## Acceso al Material Educativo
