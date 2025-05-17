@@ -230,6 +230,21 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **Autómatas Celulares: Unidimensionales, Bidimensionales y Máquina de Turing** | [![Ver en GitHub](https://img.shields.io/badge/Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/a59bee63ffa0f5452fc13aa79136e458ef9262e5/notebooks/Aut%C3%B3matas_celulares_unidimensionales%2C_bidimensional_y_maquina_de_turing.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sgevatschnaider/GraphAI-Data-Science-ML/blob/a59bee63ffa0f5452fc13aa79136e458ef9262e5/notebooks/Aut%C3%B3matas_celulares_unidimensionales%2C_bidimensional_y_maquina_de_turing.ipynb) |
 
+## 📝 Clase 7
+
+| 📄 Recurso | 📥 Acceso |
+| ---------- | -------- |
+| **Ejercicios de Autómatas Celulares** | [![Ver en GitHub](https://img.shields.io/badge/Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/84fa72855bfe6837354a5a0354fc035cd6b26fcf/notebooks/Automatas_celulares_ejercicios_github.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sgevatschnaider/GraphAI-Data-Science-ML/blob/84fa72855bfe6837354a5a0354fc035cd6b26fcf/notebooks/Automatas_celulares_ejercicios_github.ipynb) |
+
+---
+
+## 📝 Clase 8
+
+| 📄 Recurso | 📥 Acceso |
+| ---------- | -------- |
+| **Ejercicios de Autómatas Celulares** | [![Ver en GitHub](https://img.shields.io/badge/Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/84fa72855bfe6837354a5a0354fc035cd6b26fcf/notebooks/Automatas_celulares_ejercicios_github.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sgevatschnaider/GraphAI-Data-Science-ML/blob/84fa72855bfe6837354a5a0354fc035cd6b26fcf/notebooks/Automatas_celulares_ejercicios_github.ipynb) |
+
+
 ## Acceso al Material Educativo
 
 **Este repositorio es solo de lectura para los estudiantes.**  
