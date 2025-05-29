@@ -244,6 +244,13 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 | ---------- | -------- |
 | **Ejercicios de Autómatas Celulares** | [![Ver en GitHub](https://img.shields.io/badge/Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/84fa72855bfe6837354a5a0354fc035cd6b26fcf/notebooks/Automatas_celulares_ejercicios_github.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sgevatschnaider/GraphAI-Data-Science-ML/blob/84fa72855bfe6837354a5a0354fc035cd6b26fcf/notebooks/Automatas_celulares_ejercicios_github.ipynb) |
 
+## 📝 Clase 9
+
+| 📄 Recurso | 📥 Acceso |
+| ---------- | -------- |
+| **Camino y Ciclo Hamiltoniano** | [![Ver en GitHub](https://img.shields.io/badge/Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/78624a61be52f4180f30ca5691e5196f2ae3fde9/notebooks/Camino%2C_ciclo_hamiltoneano.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sgevatschnaider/GraphAI-Data-Science-ML/blob/78624a61be52f4180f30ca5691e5196f2ae3fde9/notebooks/Camino%2C_ciclo_hamiltoneano.ipynb) |
+
+
 
 ## Acceso al Material Educativo
 
