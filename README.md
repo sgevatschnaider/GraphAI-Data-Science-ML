@@ -260,6 +260,8 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 
 ## 📊 Modelos Visuales: *Darwin Gödel Machine*
 
+📖 **Análisis Detallado:** Para una explicación completa del proyecto, sus fundamentos teóricos y la implementación visual, [lee el artículo en el blog: "La Máquina que Se Reescribe"](https://economiayetica.blogspot.com/2025/06/la-maquina-que-se-reescribe-explorando.html).
+
 > Representaciones visuales e interactivas sobre conceptos relacionados con aprendizaje, lógica y teoría evolutiva aplicada al modelado de información y toma de decisiones.
 
 <details>
@@ -267,7 +269,7 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 <p>Este conjunto de archivos HTML ofrece visualizaciones interactivas de los conceptos fundamentales de la Darwin Gödel Machine. Exploran la arquitectura del agente, el ciclo evolutivo de auto-mejora y los diagramas clave presentados en el paper, permitiendo una comprensión más profunda y tangible de la teoría.</p>
 </details>
 
-|  recurso | Acceso |
+|  Recurso | Acceso |
 |--------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
 | **DGM11** | [🔍 Ver Visualización](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/57cd6a43d37590b6f96d5e314c2f4a94c61730f2/notebooks/DGM11.html) |
 | **Diagrama Paper** | [📘 Ver Visualización](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/57cd6a43d37590b6f96d5e314c2f4a94c61730f2/notebooks/diagrama%20paper.html) |
