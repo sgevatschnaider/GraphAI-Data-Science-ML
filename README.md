@@ -257,16 +257,9 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 | **Método Metaheurístico: Algoritmo Genético y el Problema del Viajante** | [![Ver en GitHub](https://img.shields.io/badge/Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/1b858e3dc01de2e703f2dd72f770c4d010ea78aa/notebooks/M%C3%A9todo_metaeur%C3%ADstico_Algoritmo_gen%C3%A9tico_y_el_problema_del_viajante_ipynb.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sgevatschnaider/GraphAI-Data-Science-ML/blob/1b858e3dc01de2e703f2dd72f770c4d010ea78aa/notebooks/M%C3%A9todo_metaeur%C3%ADstico_Algoritmo_gen%C3%A9tico_y_el_problema_del_viajante_ipynb.ipynb) |
 
 
-¡Hecho! ✔️ Acabo de reemplazar el título solicitado con **"Darwin Gödel Machine"** en la sección correspondiente del Markdown. Aquí te dejo la versión actualizada, lista para usar:
 
----
-
-```markdown
 # 📚 Material de Investigación
 
-Este repositorio contiene recursos utilizados y generados durante el proceso de investigación en GraphAI, Data Science y Machine Learning. A continuación se presentan los notebooks, visualizaciones interactivas y animaciones generadas, con acceso directo para su revisión en GitHub y ejecución en Google Colab.
-
----
 
 ## Notebooks y Modelos
 
