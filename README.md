@@ -310,17 +310,6 @@ La **Darwin Gödel Machine** representa un paradigma innovador que combina:
 
 ---
 
-## 📊 Modelos Visuales: *Darwin Gödel Machine*
-
-📖 **Análisis Detallado:** Para una explicación completa del proyecto, sus fundamentos teóricos y la implementación visual, [lee el artículo en el blog: "La Máquina que Se Reescribe"](https://economiayetica.blogspot.com/2025/06/la-maquina-que-se-reescribe-explorando.html).
-
-> Representaciones visuales e interactivas sobre conceptos relacionados con aprendizaje, lógica y teoría evolutiva aplicada al modelado de información y toma de decisiones.
-
-<details>
-<summary><strong>Resumen:</strong> <em>(haz clic para expandir/colapsar)</em></summary>
-<p>Este conjunto de archivos HTML ofrece visualizaciones interactivas de los conceptos fundamentales de la Darwin Gödel Machine. Exploran la arquitectura del agente, el ciclo evolutivo de auto-mejora y los diagramas clave presentados en el paper, permitiendo una comprensión más profunda y tangible de la teoría.</p>
-</details>
-
 
 ## Acceso al Material Educativo
 
