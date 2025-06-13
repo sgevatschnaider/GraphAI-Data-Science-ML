@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Darwin Gödel Machine - Evolución Neon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* === TU CSS MEJORADO + AJUSTES DE INTEGRACIÓN === */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #00f5ff;
+            --secondary: #7c3aed;
+            --accent: #ff1744;
+            --success: #00e676;
+            --warning: #ffc107;
+            --danger: #ff5722;
+            --primary-glow: rgba(0, 245, 255, 0.5);
+            --secondary-glow: rgba(124, 58, 237, 0.5);
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body { 
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; 
+            background: #0a0a0f;
+            color: white; 
+            min-height: 100vh; 
+            overflow: hidden;
+            font-weight: 400;
+        }
+        
+        .container { 
+            max-width: 98vw;
+            height: 98vh;
+            margin: 1vh auto;
+            padding: 30px; 
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-layout { 
+            display: grid; 
+            grid-template-columns: 1.6fr 1fr; 
+            gap: 30px;
+            flex-grow: 1;
+            min-height: 0;
+        }
+        
+        .panel { 
+            background: var(--glass); 
+            border-radius: 30px; 
+            padding: 30px; 
+            backdrop-filter: blur(25px); 
+            border: 1px solid var(--glass-border);
+            display: flex; 
+            flex-direction: column;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .panel h2 { 
+            font-size: 1.6em; 
+            margin-bottom: 20px; 
+            font-weight: 700;
+            display: flex; 
+            align-items: center; 
+            gap: 15px;
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        /* Partículas de Fondo */
+        .particles-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+        .particle { position: absolute; width: 2px; height: 2px; background: var(--primary); border-radius: 50%; animation: floatParticle 10s linear infinite; box-shadow: 0 0 6px var(--primary); }
+        .particle:nth-child(odd) { background: var(--secondary); box-shadow: 0 0 6px var(--secondary); animation-duration: 12s; }
+        .particle:nth-child(3n) { background: var(--accent); box-shadow: 0 0 6px var(--accent); animation-duration: 8s; }
+        @keyframes floatParticle {
+            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            10% { opacity: 1; } 90% { opacity: 1; }
+            100% { transform: translateY(-100px) translateX(var(--x-end, 100px)); opacity: 0; }
+        }
+
+        /* Archivo Evolutivo */
+        .archive-panel { grid-column: 1 / -1; }
+        .archive-container { flex-grow: 1; position: relative; border-radius: 25px; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); }
+        .archive-container.view-tree { display: flex; overflow-x: auto; padding: 25px; gap: 15px; }
+        .generation-column { display: flex; flex-direction: column; gap: 15px; align-items: center; padding: 0 25px; border-left: 1px solid var(--glass-border); min-width: 120px; }
+        .generation-title { font-weight: 700; color: var(--secondary); margin-bottom: 15px; font-size: 0.9em; letter-spacing: 1px; }
+
+        /* Agentes y Conexiones */
+        .agent { 
+            position: absolute; width: 35px; height: 35px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px; font-weight: 700; cursor: pointer;
+            border: 2px solid; z-index: 10;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .archive-container.view-tree .agent { position: relative; left: auto; top: auto; }
+        
+        @keyframes highPerformancePulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 10px currentColor; }
+            50% { transform: scale(1.15); box-shadow: 0 0 20px currentColor, 0 0 30px currentColor; }
+        }
+
+        .agent.selected { 
+            border-width: 3px; border-color: var(--primary) !important; transform: scale(1.4) !important; z-index: 30;
+            box-shadow: 0 0 25px var(--primary-glow), 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .agent.best-agent { 
+            border-color: var(--warning) !important; z-index: 35;
+            animation: bestAgentGlow 2s ease-in-out infinite alternate;
+        }
+        @keyframes bestAgentGlow {
+            from { box-shadow: 0 0 15px var(--warning); }
+            to { box-shadow: 0 0 25px var(--warning), 0 0 35px rgba(253, 203, 110, 0.3); }
+        }
+        .best-agent::after { 
+            content: '⭐'; position: absolute; top: -25px; font-size: 1.3em;
+            animation: starTwinkle 1.5s ease-in-out infinite;
+        }
+        @keyframes starTwinkle {
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        .connection {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary) 20%, var(--secondary) 80%, transparent);
+            transform-origin: 0 50%;
+            animation: connectionFlow 2s linear infinite;
+            z-index: 1;
+            background-size: 300% 100%;
+            box-shadow: 0 0 8px var(--primary);
+        }
+        @keyframes connectionFlow {
+            0% { background-position: 150% 0; }
+            100% { background-position: -150% 0; }
+        }
+
+        /* Tooltip Mejorado */
+        .agent-tooltip {
+            position: fixed;
+            background: rgba(10, 10, 15, 0.95);
+            border: 1px solid var(--primary);
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 12px;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            width: 280px;
+            pointer-events: none;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .tooltip-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
+        .tooltip-header .agent-id { font-weight: bold; font-family: 'Fira Code', monospace; color: var(--primary); }
+        .performance-badge { background: var(--primary); color: black; padding: 2px 8px; border-radius: 10px; font-weight: bold; font-size: 10px; }
+        .tooltip-body { display: flex; flex-direction: column; gap: 5px; }
+        .tooltip-row { display: flex; justify-content: space-between; color: rgba(255,255,255,0.7); }
+        .tooltip-row span:last-child { font-weight: 500; color: white; }
+        .code-preview { margin-top: 10px; }
+        .code-preview .code-title { font-weight: bold; margin-bottom: 5px; color: var(--secondary); }
+        .code-preview pre { background: rgba(255,255,255,0.05); padding: 8px; border-radius: 4px; white-space: pre-wrap; word-break: break-all; font-family: 'Fira Code', monospace; }
+
+        /* Paneles de Código y Métricas */
+        .code-diff-viewer, .metrics-viewer { flex-grow: 1; min-height: 0; display: flex; flex-direction: column; gap: 20px; }
+        #code-diff-content { flex-grow: 1; overflow-y: auto; background: rgba(0,0,0,0.2); border-radius: 15px; padding: 15px; font-family: 'Fira Code', monospace; }
+        .code-line { padding-left: 10px; border-left: 2px solid transparent; }
+        .code-line.added { color: var(--success); border-left-color: var(--success); background: rgba(0, 230, 118, 0.1); }
+        .code-line.removed { color: var(--danger); border-left-color: var(--danger); background: rgba(255, 87, 34, 0.1); }
+        .dgm-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        .stat-card { background: var(--glass); padding: 15px; border-radius: 15px; text-align: center; border: 1px solid var(--glass-border); }
+        .stat-number { font-size: 1.8em; font-weight: 700; color: var(--primary); }
+        .stat-label { font-size: 0.8em; color: rgba(255,255,255,0.7); margin-top: 5px; }
+        .chart-container { flex-grow: 1; position: relative; }
+        .chart-container canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        /* Controles */
+        .controls { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-top: 20px; }
+        .btn {
+            padding: 12px 25px; border: 2px solid transparent; border-radius: 25px; cursor: pointer;
+            font-weight: 700; font-size: 14px; transition: all 0.3s ease;
+            background: linear-gradient(45deg, var(--glass), rgba(255, 255, 255, 0.1));
+            color: white; backdrop-filter: blur(15px); text-transform: uppercase;
+        }
+        .btn:hover {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border-color: var(--primary);
+        }
+        .btn.active {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            box-shadow: 0 0 25px var(--primary); border-color: var(--primary);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--secondary); }
+    </style>
+</head>
+<body>
+    <div class="particles-container" id="particles-container"></div>
+    <div class="agent-tooltip" id="agent-tooltip"></div>
+    
+    <div class="container">
+        <div class="main-layout">
+            <div class="panel archive-panel">
+                <h2 class="neon-text">Archivo Evolutivo Neon</h2>
+                <div class="archive-container" id="archive"></div>
+                <div class="controls">
+                    <button class="btn" id="startBtn">▶ Iniciar Evolución</button>
+                    <button class="btn" id="cloudViewBtn">☁️ Nube</button>
+                    <button class="btn active" id="treeViewBtn">🌳 Árbol</button>
+                    <button class="btn" id="resetBtn">🔄 Reiniciar</button>
+                </div>
+            </div>
+            
+            <div class="panel code-panel">
+                <h2 style="color:var(--accent);">💻 Evolución de Código</h2>
+                <div class="code-diff-viewer">
+                    <div id="code-diff-content">
+                        <div style="text-align: center; margin-top: 100px; color: rgba(255,255,255,0.6);">
+                            <p>Selecciona un agente para ver su mutación.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel metrics-panel">
+                <h2 style="color:var(--secondary);">📊 Métricas en Tiempo Real</h2>
+                <div class="metrics-viewer">
+                    <div class="dgm-stats" id="dgm-stats">
+                        <div class="stat-card"><div id="current-generation" class="stat-number">0</div><div class="stat-label">Generación</div></div>
+                        <div class="stat-card"><div id="total-agents" class="stat-number">0</div><div class="stat-label">Agentes</div></div>
+                        <div class="stat-card"><div id="best-performance" class="stat-number">0%</div><div class="stat-label">Mejor Perf.</div></div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script>
+    class SoundManager {
+        constructor() { this.context = null; this.enabled = false; }
+        enable() { if (!this.context) this.context = new (window.AudioContext || window.webkitAudioContext)(); this.enabled = true; }
+        play(type) {
+            if (!this.enabled || !this.context) return;
+            try {
+                switch(type) {
+                    case 'mutate': this.playMutate(); break;
+                    case 'newBest': this.playNewBest(); break;
+                    case 'select': this.playSelect(); break;
+                }
+            } catch (e) { console.error("Sound error:", e); }
+        }
+        playMutate() { const o = this.context.createOscillator(), g = this.context.createGain(); o.connect(g); g.connect(this.context.destination); o.type = 'sawtooth'; o.frequency.setValueAtTime(80, this.context.currentTime); o.frequency.exponentialRampToValueAtTime(200, this.context.currentTime + 0.1); g.gain.setValueAtTime(0.05, this.context.currentTime); g.gain.exponentialRampToValueAtTime(0.001, this.context.currentTime + 0.1); o.start(); o.stop(this.context.currentTime + 0.1); }
+        playNewBest() { const o = this.context.createOscillator(), g = this.context.createGain(); o.connect(g); g.connect(this.context.destination); o.type = 'sine'; [523.25, 659.25, 783.99].forEach((f, i) => o.frequency.setValueAtTime(f, this.context.currentTime + i * 0.1)); g.gain.setValueAtTime(0.1, this.context.currentTime); g.gain.linearRampToValueAtTime(0, this.context.currentTime + 0.3); o.start(); o.stop(this.context.currentTime + 0.3); }
+        playSelect() { const o = this.context.createOscillator(), g = this.context.createGain(); o.type = 'triangle'; o.frequency.value = 880; g.gain.setValueAtTime(0.08, this.context.currentTime); g.gain.exponentialRampToValueAtTime(0.001, this.context.currentTime + 0.2); o.connect(g); g.connect(this.context.destination); o.start(); o.stop(this.context.currentTime + 0.2); }
+    }
+
+    class DGM_Implementation {
+        constructor() {
+            this.agents = []; this.generation = 0; this.isRunning = false;
+            this.timeoutId = null; this.bestAgent = null; this.selectedAgent = null;
+            this.activeView = 'tree'; this.evolutionHistory = [];
+            this.evolutionSpeed = 2500;
+            this.sound = new SoundManager();
+
+            this.dom = {
+                archive: document.getElementById('archive'),
+                startBtn: document.getElementById('startBtn'),
+                cloudViewBtn: document.getElementById('cloudViewBtn'),
+                treeViewBtn: document.getElementById('treeViewBtn'),
+                resetBtn: document.getElementById('resetBtn'),
+                codeViewer: document.getElementById('code-diff-content'),
+                currentGen: document.getElementById('current-generation'),
+                totalAgents: document.getElementById('total-agents'),
+                bestPerf: document.getElementById('best-performance'),
+                chartCanvas: document.getElementById('performanceChart'),
+                tooltip: document.getElementById('agent-tooltip'),
+                particlesContainer: document.getElementById('particles-container'),
+            };
+
+            this.chart = null;
+            this.codeTemplates = [
+                'function optimize() { /* new logic */ }', 'class Agent { constructor() { this.intel = "upgraded"; } }',
+                'async function selfImprove() { await evolve(); }', 'const mutate = () => betterSolution();',
+                'function adapt() { learnFromXP(); }',
+            ];
+            this.initialize();
+        }
+
+        initialize() {
+            this.dom.startBtn.onclick = () => this.toggleEvolution();
+            this.dom.cloudViewBtn.onclick = () => this.setView('cloud');
+            this.dom.treeViewBtn.onclick = () => this.setView('tree');
+            this.dom.resetBtn.onclick = () => this.reset();
+            this.dom.archive.addEventListener('mouseover', e => this.handleAgentHover(e));
+            this.dom.archive.addEventListener('mouseout', () => this.hideTooltip());
+            this.dom.archive.addEventListener('click', e => this.handleAgentClick(e));
+            document.addEventListener('mousemove', e => this.updateTooltipPosition(e));
+            this.initializeParticles(30);
+            this.initializeChart();
+            this.reset();
+        }
+
+        reset() {
+            this.isRunning = false; clearTimeout(this.timeoutId);
+            this.dom.startBtn.textContent = '▶ Iniciar Evolución';
+            this.generation = 0;
+            const baseAgent = this.createAgent(null, 0, true);
+            this.agents = [baseAgent];
+            this.bestAgent = baseAgent; this.selectedAgent = null;
+            this.evolutionHistory = [];
+            this.dom.codeViewer.innerHTML = `<div style="text-align: center; margin-top: 100px; color: rgba(255,255,255,0.6);">...</div>`;
+            this.updateDisplay();
+        }
+
+        createAgent(parent, generation, isBase = false) {
+            const performance = isBase ? 15 + Math.random() * 10 : Math.max(0, Math.min(100, parent.performance + (Math.random() - 0.45) * 20));
+            return {
+                id: `G${generation}-${Math.random().toString(16).slice(2, 8)}`,
+                generation, parent: parent ? parent.id : null, performance,
+                code: { old: parent ? parent.code.new : "", new: isBase ? "function baseAgent() { return 'v1.0'; }" : this.mutateCode(parent.code.new) },
+                x: Math.random() * 90 + 5, y: Math.random() * 90 + 5,
+            };
+        }
+        
+        async evolve() {
+            if (!this.isRunning) return;
+            const parent = this.selectParent();
+            this.sound.play('select');
+            this.highlightAgent(parent.id, 'selected');
+            await this.sleep(this.evolutionSpeed / 3);
+
+            this.sound.play('mutate');
+            this.highlightAgent(parent.id, 'mutating');
+            const child = this.createAgent(parent, this.generation + 1);
+            this.agents.push(child);
+            this.selectAgent(child);
+            await this.sleep(this.evolutionSpeed / 3);
+            
+            let isNewBest = false;
+            if (child.performance > this.bestAgent.performance) { this.bestAgent = child; isNewBest = true; }
+            if(isNewBest) this.sound.play('newBest');
+            
+            this.generation++;
+            this.updateEvolutionHistory();
+            this.updateDisplay();
+            this.highlightAgent(child.id, 'selected');
+            
+            this.timeoutId = setTimeout(() => this.evolve(), this.evolutionSpeed / 3);
+        }
+        
+        selectParent() {
+            const sorted = [...this.agents].sort((a,b) => b.performance - a.performance);
+            if (Math.random() < 0.7 && sorted.length > 0) return sorted[0];
+            return this.agents[Math.floor(Math.random() * this.agents.length)];
+        }
+        
+        updateDisplay() { this.renderArchive(); this.updateMetrics(); }
+        
+        renderArchive() {
+            this.dom.archive.innerHTML = '';
+            if (this.activeView === 'cloud') this.renderCloudView(); else this.renderTreeView();
+            this.highlightAgent(this.selectedAgent?.id, 'selected');
+        }
+
+        renderCloudView() { this.agents.forEach(agent => this.dom.archive.appendChild(this.createAgentElement(agent, 'cloud'))); this.renderConnections(); }
+        renderTreeView() {
+            const generations = {}; this.agents.forEach(a => { if (!generations[a.generation]) generations[a.generation] = []; generations[a.generation].push(a); });
+            Object.keys(generations).sort((a,b) => a - b).forEach(gen => {
+                const col = document.createElement('div'); col.className = 'generation-column';
+                const title = document.createElement('div'); title.className = 'generation-title'; title.textContent = `GEN ${gen}`;
+                col.appendChild(title);
+                generations[gen].forEach(agent => col.appendChild(this.createAgentElement(agent, 'tree')));
+                this.dom.archive.appendChild(col);
+            });
+        }
+        
+        createAgentElement(agent, view) {
+            const el = document.createElement('div'); el.className = 'agent'; el.dataset.agentId = agent.id;
+            const hue = (agent.performance / 100) * 140; const saturation = 80; const lightness = 50 + (agent.performance / 100) * 15;
+            el.style.background = `radial-gradient(circle, hsl(${hue}, ${saturation}%, ${lightness+10}%) 0%, hsl(${hue}, ${saturation}%, ${lightness-10}%) 100%)`;
+            el.style.borderColor = `hsl(${hue}, ${saturation+10}%, ${lightness+20}%)`;
+            el.style.boxShadow = `0 0 10px hsl(${hue}, ${saturation}%, ${lightness}%)`;
+            if (agent.performance > 85) el.style.animation = 'highPerformancePulse 1.5s ease-in-out infinite alternate';
+            el.style.transform = 'scale(0)'; setTimeout(() => { el.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)'; el.style.transform = 'scale(1)'; }, 50);
+            if (view === 'cloud') { el.style.left = `${agent.x}%`; el.style.top = `${agent.y}%`; }
+            if (this.bestAgent && agent.id === this.bestAgent.id) el.classList.add('best-agent');
+            return el;
+        }
+
+        renderConnections() {
+             this.dom.archive.querySelectorAll('.connection').forEach(el => el.remove());
+             this.agents.forEach(agent => {
+                if(agent.parent){
+                    const parentEl = this.dom.archive.querySelector(`[data-agent-id="${agent.parent}"]`);
+                    const childEl = this.dom.archive.querySelector(`[data-agent-id="${agent.id}"]`);
+                    if(parentEl && childEl) {
+                        const conn = document.createElement('div'); conn.className = 'connection';
+                        const pRect = parentEl.getBoundingClientRect(), cRect = childEl.getBoundingClientRect(), aRect = this.dom.archive.getBoundingClientRect();
+                        const x1 = pRect.left - aRect.left + pRect.width/2, y1 = pRect.top - aRect.top + pRect.height/2;
+                        const x2 = cRect.left - aRect.left + cRect.width/2, y2 = cRect.top - aRect.top + cRect.height/2;
+                        const length = Math.hypot(x2 - x1, y2 - y1), angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+                        conn.style.left = `${x1}px`; conn.style.top = `${y1}px`; conn.style.width = `${length}px`; conn.style.transform = `rotate(${angle}deg)`;
+                        this.dom.archive.prepend(conn);
+                    }
+                }
+            });
+        }
+        
+        selectAgent(agent) { this.selectedAgent = agent; this.renderCodeDiff(agent); this.highlightAgent(agent.id, 'selected'); }
+
+        renderCodeDiff(agent) {
+            const { old: oldCode, new: newCode } = agent.code; const oldLines = oldCode.split('\n'); const newLines = newCode.split('\n'); let diffHtml = '';
+            newLines.forEach(line => { diffHtml += `<div class="code-line ${!oldLines.includes(line) ? 'added' : ''}">${!oldLines.includes(line) ? '+' : ' '} ${line}</div>`; });
+            oldLines.forEach(line => { if (!newLines.includes(line) && line) diffHtml += `<div class="code-line removed">- ${line}</div>`; });
+            this.dom.codeViewer.innerHTML = `<h4>Mutación para ${agent.id.slice(0,10)}</h4>${diffHtml || "<p>Sin cambios detectados.</p>"}`;
+        }
+        
+        toggleEvolution() { if (!this.sound.enabled && confirm("¿Habilitar efectos de sonido?")) this.sound.enable(); this.isRunning = !this.isRunning; this.dom.startBtn.textContent = this.isRunning ? '⏸ Pausar' : '▶ Reanudar'; if (this.isRunning) this.evolve(); else clearTimeout(this.timeoutId); }
+        setView(view) { this.activeView = view; this.dom.cloudViewBtn.classList.toggle('active', view === 'cloud'); this.dom.treeViewBtn.classList.toggle('active', view === 'tree'); this.dom.archive.className = 'archive-container'; if (view === 'tree') this.dom.archive.classList.add('view-tree'); this.renderArchive(); }
+        handleAgentClick(e) { const el = e.target.closest('.agent'); if (el) { const agent = this.agents.find(a => a.id === el.dataset.agentId); if (agent) this.selectAgent(agent); } }
+        
+        highlightAgent(agentId, className) {
+            this.dom.archive.querySelectorAll('.agent.selected, .agent.mutating').forEach(el => el.classList.remove('selected', 'mutating'));
+            if(agentId) { const agentEl = this.dom.archive.querySelector(`[data-agent-id="${agentId}"]`); if (agentEl) agentEl.classList.add(className); }
+        }
+
+        mutateCode(parentCode) { let lines = parentCode.split('\n'); if(lines.length === 0) return "/* code mutated */"; const lineToChange = Math.floor(Math.random() * lines.length); lines[lineToChange] = this.codeTemplates[Math.floor(Math.random() * this.codeTemplates.length)]; return lines.join('\n'); }
+        sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+        
+        initializeChart() {
+            if (this.chart) this.chart.destroy();
+            this.chart = new Chart(this.dom.chartCanvas, {
+                type: 'line',
+                data: { labels: [], datasets: [
+                    { label: 'Mejor Rendimiento', data: [], borderColor: 'var(--primary)', tension: 0.4, fill: false, borderWidth: 3, pointBackgroundColor: 'var(--primary)', pointRadius: 4 },
+                    { label: 'Rendimiento Promedio', data: [], borderColor: 'var(--secondary)', tension: 0.4, fill: false, borderDash: [5, 5], borderWidth: 2 }
+                ]},
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: 'white' }}}, scales: { x: { ticks: { color: 'rgba(255,255,255,0.7)' }, grid: { color: 'rgba(255,255,255,0.1)' } }, y: { ticks: { color: 'rgba(255,255,255,0.7)' }, grid: { color: 'rgba(255,255,255,0.1)' }, min: 0, max: 100 } }}
+            });
+        }
+        updateMetrics() {
+            this.dom.currentGen.textContent = this.generation;
+            this.dom.totalAgents.textContent = this.agents.length;
+            this.dom.bestPerf.textContent = `${this.bestAgent.performance.toFixed(0)}%`;
+            this.chart.data.labels = this.evolutionHistory.map(h => `G${h.gen}`);
+            this.chart.data.datasets[0].data = this.evolutionHistory.map(h => h.best);
+            this.chart.data.datasets[1].data = this.evolutionHistory.map(h => h.avg);
+            this.chart.update('none');
+        }
+        updateEvolutionHistory() { const avgPerf = this.agents.length > 0 ? this.agents.reduce((s, a) => s + a.performance, 0) / this.agents.length : 0; this.evolutionHistory.push({ gen: this.generation, best: this.bestAgent.performance, avg: avgPerf }); }
+        initializeParticles(count) { for(let i=0; i<count; i++) { const p = document.createElement('div'); p.className = 'particle'; p.style.left = `${Math.random()*100}vw`; p.style.top = `${Math.random()*100}vh`; p.style.animationDelay = `${Math.random()*10}s`; p.style.setProperty('--x-end', `${Math.random()*200 - 100}px`); this.dom.particlesContainer.appendChild(p); } }
+        
+        handleAgentHover(e) { const el = e.target.closest('.agent'); if (el) { const agent = this.agents.find(a => a.id === el.dataset.agentId); if (agent) this.showTooltip(agent, e); } }
+        handleAgentHoverOut() { this.hideTooltip(); }
+        updateTooltipPosition(e) { if(this.dom.tooltip.style.opacity === '1') { this.dom.tooltip.style.left = `${e.clientX + 15}px`; this.dom.tooltip.style.top = `${e.clientY + 15}px`; } }
+        showTooltip(agent, e) { this.dom.tooltip.innerHTML = this.createTooltipHTML(agent); this.updateTooltipPosition(e); this.dom.tooltip.style.opacity = '1'; this.dom.tooltip.style.transform = 'scale(1)'; }
+        hideTooltip() { this.dom.tooltip.style.opacity = '0'; this.dom.tooltip.style.transform = 'scale(0.95)'; }
+        createTooltipHTML(agent) {
+             return `<div class="tooltip-header"><span class="agent-id">${agent.id.slice(0,10)}...</span><span class="performance-badge" style="background-color:hsl(${(agent.performance/100)*120}, 80%, 60%)">${agent.performance.toFixed(1)}%</span></div><div class="tooltip-body"><div class="tooltip-row"><span>Generación:</span> <span>${agent.generation}</span></div><div class="tooltip-row"><span>Padre:</span> <span>${agent.parent ? agent.parent.slice(0,6) : 'N/A'}...</span></div><div class="code-preview"><div class="code-title">Última Mutación:</div><pre>${agent.code.new.split('\n')[0].substring(0, 30)}...</pre></div></div>`;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        new DGM_Implementation();
+    });
+    </script>
+</body>
+</html>
