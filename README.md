@@ -257,6 +257,7 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 | **Método Metaheurístico: Algoritmo Genético y el Problema del Viajante** | [![Ver en GitHub](https://img.shields.io/badge/Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/1b858e3dc01de2e703f2dd72f770c4d010ea78aa/notebooks/M%C3%A9todo_metaeur%C3%ADstico_Algoritmo_gen%C3%A9tico_y_el_problema_del_viajante_ipynb.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sgevatschnaider/GraphAI-Data-Science-ML/blob/1b858e3dc01de2e703f2dd72f770c4d010ea78aa/notebooks/M%C3%A9todo_metaeur%C3%ADstico_Algoritmo_gen%C3%A9tico_y_el_problema_del_viajante_ipynb.ipynb) |
 
 
+# 📝 Clase 4: Darwin Gödel Machine (DGM)
 
 ## 📊 Modelos Visuales: *Darwin Gödel Machine*
 
@@ -269,26 +270,58 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 <p>Este conjunto de archivos HTML ofrece visualizaciones interactivas de los conceptos fundamentales de la Darwin Gödel Machine. Exploran la arquitectura del agente, el ciclo evolutivo de auto-mejora y los diagramas clave presentados en el paper, permitiendo una comprensión más profunda y tangible de la teoría.</p>
 </details>
 
-|  Recurso | Acceso |
-|--------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
-| **DGM11** | [🔍 Ver Visualización](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/57cd6a43d37590b6f96d5e314c2f4a94c61730f2/notebooks/DGM11.html) |
-| **Diagrama Paper** | [📘 Ver Visualización](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/57cd6a43d37590b6f96d5e314c2f4a94c61730f2/notebooks/diagrama%20paper.html) |
-| **Diagram 4** | [📘 Ver Visualización](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/451d5ea2656a472eff85214c35288c9f9a90c6be/notebooks/diagram4.html) |
+---
 
-📝 *Estos archivos HTML están diseñados para visualización estática y no requieren entorno de ejecución (como Colab o Jupyter).*
+## 🌐 Visualizaciones Interactivas HTML
+
+| 📊 **Modelo Visual** | 📋 **Descripción** | 🔗 **Enlace** |
+|------------------------|-------------------|----------------|
+| **Teoría DGM** | Fundamentos teóricos de la Darwin Gödel Machine | [![Ver HTML](https://img.shields.io/badge/Ver-HTML-orange?style=for-the-badge&logo=html5)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/04bbd6463a14dcab39e36780d5abedca0a150f85/recursos/teoria_dgm.html) |
+| **Modelo DGM** | Implementación visual del modelo Darwin Gödel Machine | [![Ver HTML](https://img.shields.io/badge/Ver-HTML-orange?style=for-the-badge&logo=html5)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/04bbd6463a14dcab39e36780d5abedca0a150f85/recursos/dgm-modelo.html) |
+| **Modelo DGM 2.0** | Versión mejorada del modelo Darwin Gödel Machine | [![Ver HTML](https://img.shields.io/badge/Ver-HTML-orange?style=for-the-badge&logo=html5)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/04bbd6463a14dcab39e36780d5abedca0a150f85/recursos/01-dgm-modelo-2.0.html) |
 
 ---
 
-## 🎞️ Animaciones y Gráficos Dinámicos
+## 🎯 Objetivos de Aprendizaje
+
+- **Conceptos Fundamentales**: Comprensión de la teoría evolutiva aplicada al aprendizaje automático
+- **Visualización Interactiva**: Exploración de modelos complejos a través de representaciones gráficas
+- **Aplicaciones Prácticas**: Implementación de algoritmos de auto-mejora y toma de decisiones
+- **Análisis Crítico**: Evaluación de las implicaciones éticas y técnicas de sistemas auto-evolutivos
+
+---
+
+## 📖 Contenido Teórico
+
+La **Darwin Gödel Machine** representa un paradigma innovador que combina:
+
+- 🧬 **Evolución Darwiniana**: Procesos de selección natural aplicados a algoritmos
+- 🔢 **Lógica Gödeliana**: Fundamentos matemáticos para la auto-referencia y completitud
+- 🤖 **Aprendizaje Automático**: Sistemas capaces de modificar su propio código
+- 🎯 **Optimización Adaptativa**: Mejora continua basada en retroalimentación del entorno
+
+---
+
+### 📌 Notas Importantes
+
+> ⚠️ **Advertencia**: Los modelos DGM son conceptuales y experimentales. Su implementación requiere un entendimiento profundo de teoría de la computación y ética en IA.
+
+> 💡 **Tip**: Para una mejor comprensión, se recomienda revisar primero la teoría antes de explorar las implementaciones visuales.
+
+---
+
+## 📊 Modelos Visuales: *Darwin Gödel Machine*
+
+📖 **Análisis Detallado:** Para una explicación completa del proyecto, sus fundamentos teóricos y la implementación visual, [lee el artículo en el blog: "La Máquina que Se Reescribe"](https://economiayetica.blogspot.com/2025/06/la-maquina-que-se-reescribe-explorando.html).
+
+> Representaciones visuales e interactivas sobre conceptos relacionados con aprendizaje, lógica y teoría evolutiva aplicada al modelado de información y toma de decisiones.
 
 <details>
 <summary><strong>Resumen:</strong> <em>(haz clic para expandir/colapsar)</em></summary>
-<p>Esta sección contiene animaciones GIF que muestran la simulación de la Darwin Gödel Machine en acción. Se puede observar el proceso evolutivo de los agentes en tiempo real, incluyendo la generación de nuevos nodos (agentes), la formación de linajes y la dinámica de un "archivo evolutivo" en crecimiento.</p>
+<p>Este conjunto de archivos HTML ofrece visualizaciones interactivas de los conceptos fundamentales de la Darwin Gödel Machine. Exploran la arquitectura del agente, el ciclo evolutivo de auto-mejora y los diagramas clave presentados en el paper, permitiendo una comprensión más profunda y tangible de la teoría.</p>
 </details>
 
-| Nombre | Visualización |
-|----------|---------------|
-| **DGM2** | ![DGM2](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/981f9fe2ea2938dc43b90302b90d9a12edea9d0c/notebooks/DGM2.gif?raw=true) |
+
 ## Acceso al Material Educativo
 
 **Este repositorio es solo de lectura para los estudiantes.**  
