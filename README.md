@@ -260,7 +260,6 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 
 # 📚 Material de Investigación
 
-
 ## Notebooks y Modelos
 
 | 📄 Recurso | 📥 Acceso |
@@ -278,25 +277,6 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 | **Diagram 4** | [📘 diagram4.html](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/451d5ea2656a472eff85214c35288c9f9a90c6be/notebooks/diagram4.html) |
 
 ---
-
-## 🎞️ Animaciones y Gráficos Dinámicos
-
-| 🎥 Nombre | 🖼️ Visualizar GIF |
-|----------|-------------------|
-| **Neon** | ![Neon](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/981f9fe2ea2938dc43b90302b90d9a12edea9d0c/notebooks/Neon.gif?raw=true) |
-| **DGM** | ![DGM](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/981f9fe2ea2938dc43b90302b90d9a12edea9d0c/notebooks/DGM.gif?raw=true) |
-| **DGM2** | ![DGM2](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/981f9fe2ea2938dc43b90302b90d9a12edea9d0c/notebooks/DGM2.gif?raw=true) |
-
----
-
-📌 *Este contenido forma parte de un proyecto mayor de investigación aplicada en ciencia de datos, inteligencia artificial y grafos.*  
-🔗 **Repositorio completo:** [GraphAI-Data-Science-ML](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML)
-```
-
----
-
-
-
 
 ## Acceso al Material Educativo
 
