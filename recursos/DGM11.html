@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Darwin Gödel Machine - Visualización Avanzada 2.0</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; 
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3), transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15), transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 200, 255, 0.2), transparent 50%),
+                linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+            color: white; 
+            min-height: 100vh; 
+            overflow-x: hidden;
+        }
+        
+        .container { 
+            max-width: 2200px; /* Aumentado para el layout de 3 columnas */
+            margin: 0 auto; 
+            padding: 20px; 
+        }
+        
+        .header { 
+            text-align: center; margin-bottom: 30px; background: rgba(255,255,255,0.03); 
+            padding: 35px; border-radius: 25px; backdrop-filter: blur(20px); 
+            border: 1px solid rgba(255,255,255,0.08); position: relative; overflow: hidden;
+        }
+        .header h1 { 
+            font-size: 3.5em; margin-bottom: 15px; 
+            background: linear-gradient(45deg, #00d4ff, #0099cc, #6c5ce7, #a29bfe); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; 
+            text-shadow: 0 0 40px rgba(0, 212, 255, 0.4); font-weight: 800; letter-spacing: -2px;
+        }
+        
+        /* Layout Principal de 3 columnas */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .panel {
+            background: rgba(255,255,255,0.03); border-radius: 25px; 
+            padding: 35px; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08);
+            display: flex; flex-direction: column;
+        }
+
+        .panel h2 {
+            font-size: 1.5em; margin-bottom: 25px; font-weight: 600;
+            display: flex; align-items: center; gap: 12px;
+        }
+        .panel h2.evolution-title { color: #00d4ff; }
+        .panel h2.code-title { color: #ff9ff3; }
+        .panel h2.metrics-title { color: #6c5ce7; }
+        .panel h2 svg { width: 28px; height: 28px; }
+
+        .dgm-stats {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px; margin-bottom: 25px;
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.04); padding: 20px; border-radius: 18px;
+            text-align: center; border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s ease;
+        }
+        .stat-number { font-size: 2em; font-weight: 700; background: linear-gradient(45deg, #00d4ff, #6c5ce7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .stat-label { font-size: 0.9em; color: rgba(255,255,255,0.8); margin-top: 8px; font-weight: 500;}
+
+        .archive-container { 
+            flex-grow: 1; height: 600px; min-height: 400px; position: relative; 
+            border: 2px solid rgba(0, 212, 255, 0.2); border-radius: 20px; 
+            background: radial-gradient(circle at center, rgba(0, 212, 255, 0.03), transparent 70%);
+            transition: perspective 0.5s ease;
+        }
+        .archive-container canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+
+        /* Vistas 3D y Árbol */
+        .archive-container.view-3d { perspective: 1200px; }
+        .archive-container.view-tree { display: flex; overflow-x: auto; padding: 20px; gap: 30px; }
+        .generation-column { display: flex; flex-direction: column; gap: 20px; align-items: center; min-width: 100px; }
+        .generation-title { font-weight: bold; color: #a29bfe; writing-mode: vertical-rl; text-orientation: mixed; }
+
+        .agent { 
+            position: absolute; width: 50px; height: 50px; border-radius: 50%; display: flex; 
+            align-items: center; justify-content: center; font-size: 11px; font-weight: 700; cursor: pointer; 
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            border: 3px solid; z-index: 10;
+        }
+        .archive-container.view-tree .agent { position: relative; left: auto; top: auto; }
+        .archive-container.view-3d .agent { transition: transform 0.8s ease; }
+
+        .connection { 
+            position: absolute; height: 2px; background: linear-gradient(90deg, rgba(0, 212, 255, 0.6), rgba(108, 92, 231, 0.4)); 
+            z-index: 1; transition: all 0.6s; transform-origin: 0% 50%; opacity: 0.7;
+        }
+        .connection.strong { height: 4px; opacity: 1; }
+
+        /* Animación de Mutación */
+        @keyframes mutation-pulse {
+            0% { box-shadow: 0 0 15px 5px rgba(255,0,255,0.5); }
+            50% { box-shadow: 0 0 30px 10px rgba(255,0,255,0.8); }
+            100% { box-shadow: 0 0 15px 5px rgba(255,0,255,0.5); }
+        }
+        .agent.mutating { animation: mutation-pulse 1s ease-in-out; }
+
+        /* Panel de Código */
+        .code-evolution-panel { flex-grow: 1; }
+        .code-diff-viewer {
+            background: rgba(0,0,0,0.4); border-radius: 15px; padding: 20px; 
+            font-family: 'Fira Code', 'Courier New', monospace; font-size: 13px;
+            height: 400px; overflow-y: auto;
+        }
+        .code-diff-viewer h4 { margin-bottom: 10px; color: #a29bfe; }
+        .code-line { white-space: pre; }
+        .code-line.added { color: #55efc4; }
+        .code-line.removed { color: #ff7675; text-decoration: line-through; }
+        
+        /* Controles Avanzados */
+        .advanced-controls { margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .control-group { display: flex; flex-direction: column; margin-bottom: 15px; }
+        .control-group label { margin-bottom: 8px; font-size: 14px; }
+        .control-group input[type="range"] { width: 100%; }
+
+        /* Resto de Estilos (adaptados o sin cambios) */
+        .agent.generation-0 { border-color: #ff6b7a; } .agent.generation-1 { border-color: #4ecdc4; }
+        .agent.generation-2 { border-color: #45b7d1; } .agent.generation-3 { border-color: #96ceb4; }
+        .agent.generation-4 { border-color: #feca57; } .agent.generation-5 { border-color: #ff9ff3; }
+        .agent.selected { border-width: 4px; border-color: #00d4ff !important; transform: scale(1.3) !important; z-index: 30; }
+        .agent.best-agent { border-color: #ffd700 !important; animation: bestAgentPulse 2s infinite; z-index: 35; }
+        @keyframes bestAgentPulse { 50% { box-shadow: 0 0 40px 10px rgba(255, 215, 0, 0.8); } }
+        .controls { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; justify-content: center; }
+        .btn { padding: 12px 24px; border: none; border-radius: 12px; cursor: pointer; font-weight: 600; font-size: 14px; transition: all 0.3s; background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+        .btn:hover { transform: translateY(-3px) scale(1.05); }
+        .btn.active { background: linear-gradient(135deg, #00d4ff, #6c5ce7); }
+        .status { text-align: center; padding: 15px; background: rgba(0,212,255,0.08); border-radius: 15px; margin-top: 25px; font-weight: 500; border: 1px solid rgba(0,212,255,0.2); }
+        .metric { margin-bottom: 20px; }
+        .metric-label { font-size: 15px; margin-bottom: 12px; color: rgba(255,255,255,0.9); font-weight: 600; }
+        .progress-bar { height: 10px; background: rgba(0,0,0,0.4); border-radius: 10px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #6c5ce7, #00d4ff); border-radius: 10px; transition: width 1s ease; }
+        .chart-container { margin-top: 20px; height: 250px; background: rgba(255,255,255,0.02); border-radius: 20px; padding: 20px; border: 1px solid rgba(255,255,255,0.08); }
+
+        @media (max-width: 1600px) {
+            .main-layout { grid-template-columns: 1.8fr 1.2fr; }
+            .metrics-panel { grid-column: 1 / -1; }
+        }
+        @media (max-width: 1024px) {
+            .main-layout { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Darwin Gödel Machine 2.0</h1>
+        </header>
+        
+        <div class="main-layout">
+            <div class="panel evolution-panel">
+                <h2 class="evolution-title">🧬 Archivo Evolutivo</h2>
+                <div class="archive-container" id="archive">
+                    <canvas id="heatmap-canvas"></canvas>
+                </div>
+                <div class="controls">
+                    <button class="btn" id="startBtn">▶ Iniciar</button>
+                    <button class="btn" id="treeViewBtn">🌳 Vista Árbol</button>
+                    <button class="btn" id="view3DBtn">🧊 Vista 3D</button>
+                    <button class="btn" id="resetBtn">🔄 Reiniciar</button>
+                </div>
+                 <div class="advanced-controls">
+                    <div class="control-group">
+                        <label for="mutation-rate">Tasa de Mutación: <span id="mutation-rate-value">0.5</span></label>
+                        <input type="range" id="mutation-rate" min="0.1" max="1" step="0.1" value="0.5">
+                    </div>
+                    <div class="control-group">
+                        <label for="selection-pressure">Presión de Selección: <span id="selection-pressure-value">0.4</span></label>
+                        <input type="range" id="selection-pressure" min="0.1" max="1" step="0.1" value="0.4">
+                    </div>
+                </div>
+                <div class="status" id="status">Sistema DGM inicializado.</div>
+            </div>
+            
+            <div class="panel code-evolution-panel">
+                <h2 class="code-title">📜 Evolución de Código</h2>
+                <div class="code-diff-viewer" id="code-diff-viewer">
+                    <p style="text-align: center; margin-top: 50px; color: #aaa;">Seleccione un agente para ver la evolución de su código.</p>
+                </div>
+            </div>
+
+            <div class="panel metrics-panel">
+                <h2 class="metrics-title">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="2" stroke="white" stroke-width="1.5"/><rect x="6" y="12" width="4" height="8" rx="1" fill="#e17055"/><rect x="10" y="4" width="4" height="16" rx="1" fill="#00b894"/><rect x="14" y="8" width="4" height="12" rx="1" fill="#00d4ff"/></svg>
+                    Métricas Clave
+                </h2>
+                <div class="dgm-stats">
+                    <div class="stat-card"><div class="stat-number" id="current-generation">0</div><div class="stat-label">Generación</div></div>
+                    <div class="stat-card"><div class="stat-number" id="total-agents">0</div><div class="stat-label">Agentes</div></div>
+                    <div class="stat-card"><div class="stat-number" id="viable-agents">0</div><div class="stat-label">Viables</div></div>
+                    <div class="stat-card"><div class="stat-number" id="best-performance">0%</div><div class="stat-label">Mejor Perf.</div></div>
+                </div>
+
+                <h2 class="metrics-title">Métricas DGM</h2>
+                <div class="metric">
+                    <div class="metric-label">Velocidad de Mejora</div>
+                    <div class="progress-bar"><div class="progress-fill" id="improvement-velocity" style="width: 0%;"></div></div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Tasa de Auto-Modificación</div>
+                    <div class="progress-bar"><div class="progress-fill" id="self-modification-rate" style="width: 0%;"></div></div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Índice de Convergencia: <span id="convergence-status">EVOLUCIONANDO</span></div>
+                    <div class="progress-bar"><div class="progress-fill" id="convergence-index" style="width: 0%;"></div></div>
+                </div>
+                 <div class="chart-container" id="chart-container"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    class DarwinGodelMachine {
+        constructor() {
+            // Estado y Parámetros de Simulación
+            this.agents = []; this.generation = 0; this.isRunning = false;
+            this.bestAgent = null; this.selectedAgent = null; this.evolutionHistory = [];
+            this.mutationRate = 0.5; this.selectionPressure = 0.4;
+            this.isTreeViewActive = false; this.is3DViewActive = false;
+
+            // Referencias al DOM
+            this.dom = {
+                archive: document.getElementById('archive'),
+                heatmapCanvas: document.getElementById('heatmap-canvas'),
+                startBtn: document.getElementById('startBtn'),
+                treeViewBtn: document.getElementById('treeViewBtn'),
+                view3DBtn: document.getElementById('view3DBtn'),
+                resetBtn: document.getElementById('resetBtn'),
+                codeViewer: document.getElementById('code-diff-viewer'),
+                mutationRateSlider: document.getElementById('mutation-rate'),
+                selectionPressureSlider: document.getElementById('selection-pressure'),
+                mutationRateValue: document.getElementById('mutation-rate-value'),
+                selectionPressureValue: document.getElementById('selection-pressure-value'),
+            };
+
+            this.chart = null;
+            this.initialize();
+        }
+
+        initialize() {
+            this.initializeUIListeners();
+            this.createInitialPopulation();
+            this.initializeChart();
+            this.updateDisplay();
+        }
+
+        initializeUIListeners() {
+            this.dom.startBtn.addEventListener('click', () => this.toggleEvolution());
+            this.dom.treeViewBtn.addEventListener('click', () => this.toggleTreeView());
+            this.dom.view3DBtn.addEventListener('click', () => this.toggle3DView());
+            this.dom.resetBtn.addEventListener('click', () => this.reset());
+            
+            this.dom.archive.addEventListener('click', (e) => this.handleArchiveClick(e));
+
+            this.dom.mutationRateSlider.addEventListener('input', (e) => {
+                this.mutationRate = parseFloat(e.target.value);
+                this.dom.mutationRateValue.textContent = this.mutationRate.toFixed(1);
+            });
+            this.dom.selectionPressureSlider.addEventListener('input', (e) => {
+                this.selectionPressure = parseFloat(e.target.value);
+                this.dom.selectionPressureValue.textContent = this.selectionPressure.toFixed(1);
+            });
+        }
+        
+        createInitialPopulation() {
+            for (let i = 0; i < 10; i++) this.agents.push(this.createAgent(null, 0));
+        }
+
+        createAgent(parent, generation) {
+            const container = this.dom.archive;
+            const containerWidth = container.offsetWidth;
+            const containerHeight = container.offsetHeight;
+            const agentSize = 50;
+
+            const agent = {
+                id: `DGM-${generation}-${Math.random().toString(16).slice(2, 8)}`,
+                generation, parent: parent ? parent.id : null,
+                performance: parent ? 0 : Math.random() * 50,
+                viable: Math.random() > 0.2,
+                x: Math.random() * (containerWidth - agentSize),
+                y: Math.random() * (containerHeight - agentSize),
+                code: parent ? this.mutateCode(parent.code) : this.generateBaseCode(),
+            };
+            
+            if (parent) {
+                const perfBoost = (Math.random() - 0.4) * (20 * this.mutationRate);
+                agent.performance = Math.max(0, Math.min(100, parent.performance + perfBoost));
+            }
+
+            if (!this.bestAgent || (agent.viable && agent.performance > this.bestAgent.performance)) {
+                this.bestAgent = agent;
+            }
+            return agent;
+        }
+
+        evolveGeneration() {
+            if (!this.isRunning) return;
+            
+            const viableParents = this.agents.filter(a => a.viable).sort((a,b) => b.performance - a.performance);
+            if(viableParents.length === 0) {
+                this.updateStatus("Evolución estancada."); this.isRunning = false; return;
+            }
+
+            const parentCount = Math.max(1, Math.floor(viableParents.length * this.selectionPressure));
+            const topParents = viableParents.slice(0, parentCount);
+            
+            const newAgents = [];
+            const numNewAgents = Math.floor(Math.random() * 4) + 2;
+            for (let i = 0; i < numNewAgents; i++) {
+                const parent = topParents[Math.floor(Math.random() * topParents.length)];
+                newAgents.push(this.createAgent(parent, this.generation + 1));
+            }
+            
+            this.agents.push(...newAgents);
+            this.generation++;
+            
+            this.updateEvolutionHistory();
+            this.updateDisplay();
+            this.updateStatus(`Generación ${this.generation}: ${newAgents.length} nuevos agentes.`);
+            
+            if (this.isRunning) setTimeout(() => this.evolveGeneration(), 1500);
+        }
+
+        updateDisplay() {
+            this.renderAgents();
+            this.renderConnections();
+            this.createPerformanceHeatmap();
+            this.updateAllMetrics();
+        }
+        
+        renderAgents() {
+            const fragment = document.createDocumentFragment();
+            // Limpiar agentes, pero no el canvas
+            this.dom.archive.querySelectorAll('.agent, .generation-column').forEach(el => el.remove());
+            
+            if (this.isTreeViewActive) {
+                const generations = [...new Set(this.agents.map(a => a.generation))].sort((a,b) => a-b);
+                generations.forEach(gen => {
+                    const col = document.createElement('div');
+                    col.className = 'generation-column';
+                    const title = document.createElement('div');
+                    title.className = 'generation-title';
+                    title.textContent = `G${gen}`;
+                    col.appendChild(title);
+
+                    this.agents.filter(a => a.generation === gen).forEach(agent => {
+                        col.appendChild(this.createAgentElement(agent));
+                    });
+                    fragment.appendChild(col);
+                });
+            } else {
+                this.agents.forEach(agent => {
+                    fragment.appendChild(this.createAgentElement(agent));
+                });
+            }
+            this.dom.archive.appendChild(fragment);
+
+            // Animar nuevos agentes
+            setTimeout(() => {
+                this.dom.archive.querySelectorAll('.mutating').forEach(el => el.classList.remove('mutating'));
+            }, 1000);
+        }
+        
+        createAgentElement(agent) {
+            const el = document.createElement('div');
+            el.className = `agent generation-${Math.min(agent.generation, 5)}`;
+            if(agent.generation === this.generation) el.classList.add('mutating');
+            el.dataset.agentId = agent.id;
+            
+            const hue = (agent.performance / 100) * 120; // 0=rojo, 120=verde
+            el.style.background = `hsl(${hue}, 80%, 60%)`;
+            if (this.bestAgent && agent.id === this.bestAgent.id) el.classList.add('best-agent');
+            if (this.selectedAgent && agent.id === this.selectedAgent.id) el.classList.add('selected');
+            
+            if (!this.isTreeViewActive) {
+                el.style.left = `${agent.x}px`;
+                el.style.top = `${agent.y}px`;
+                if (this.is3DViewActive) {
+                    el.style.transform = `translateZ(${agent.generation * 40}px)`;
+                }
+            }
+            return el;
+        }
+
+        renderConnections() {
+            this.dom.archive.querySelectorAll('.connection').forEach(el => el.remove());
+            if (this.isTreeViewActive || this.is3DViewActive) return;
+
+            const fragment = document.createDocumentFragment();
+            this.agents.forEach(agent => {
+                if (agent.parent) {
+                    const parent = this.agents.find(a => a.id === agent.parent);
+                    if (parent) {
+                        const conn = document.createElement('div');
+                        conn.className = 'connection';
+                        if (agent.performance > 80) conn.classList.add('strong');
+                        
+                        const pCenter = { x: parent.x + 25, y: parent.y + 25 };
+                        const aCenter = { x: agent.x + 25, y: agent.y + 25 };
+                        const angle = Math.atan2(aCenter.y - pCenter.y, aCenter.x - pCenter.x) * 180 / Math.PI;
+                        const length = Math.hypot(aCenter.x - pCenter.x, aCenter.y - pCenter.y);
+
+                        conn.style.left = `${pCenter.x}px`;
+                        conn.style.top = `${pCenter.y}px`;
+                        conn.style.width = `${length}px`;
+                        conn.style.transform = `rotate(${angle}deg)`;
+                        fragment.appendChild(conn);
+                    }
+                }
+            });
+            this.dom.archive.prepend(fragment); // Prepend para que esté detrás de los agentes
+        }
+
+        createPerformanceHeatmap() {
+            const canvas = this.dom.heatmapCanvas;
+            const ctx = canvas.getContext('2d');
+            canvas.width = this.dom.archive.offsetWidth;
+            canvas.height = this.dom.archive.offsetHeight;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            this.agents.filter(a => a.viable).forEach(agent => {
+                const x = agent.x + 25; const y = agent.y + 25;
+                const radius = 50 + agent.performance * 1.5;
+                const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
+                const hue = (agent.performance / 100) * 60; // 0=rojo, 60=amarillo
+                gradient.addColorStop(0, `hsla(${hue}, 100%, 50%, 0.1)`);
+                gradient.addColorStop(1, `hsla(${hue}, 100%, 50%, 0)`);
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            });
+        }
+        
+        // --- Lógica de Vistas ---
+        toggleEvolution() {
+            this.isRunning = !this.isRunning;
+            this.dom.startBtn.textContent = this.isRunning ? '⏸ Pausar' : '▶ Reanudar';
+            if (this.isRunning) this.evolveGeneration();
+        }
+        toggleTreeView() {
+            this.isTreeViewActive = !this.isTreeViewActive;
+            this.dom.treeViewBtn.classList.toggle('active', this.isTreeViewActive);
+            this.dom.archive.classList.toggle('view-tree', this.isTreeViewActive);
+            if(this.isTreeViewActive) { // Si se activa, desactivar 3D
+                this.is3DViewActive = false;
+                this.dom.view3DBtn.classList.remove('active');
+                this.dom.archive.classList.remove('view-3d');
+            }
+            this.updateDisplay();
+        }
+        toggle3DView() {
+            this.is3DViewActive = !this.is3DViewActive;
+            this.dom.view3DBtn.classList.toggle('active', this.is3DViewActive);
+            this.dom.archive.classList.toggle('view-3d', this.is3DViewActive);
+            if(this.is3DViewActive) { // Si se activa, desactivar árbol
+                 this.isTreeViewActive = false;
+                 this.dom.treeViewBtn.classList.remove('active');
+                 this.dom.archive.classList.remove('view-tree');
+            }
+            this.updateDisplay();
+        }
+
+        // --- Lógica de Selección y Código ---
+        handleArchiveClick(e) {
+            const agentEl = e.target.closest('.agent');
+            if(agentEl) {
+                const agent = this.agents.find(a => a.id === agentEl.dataset.agentId);
+                if(agent) this.selectAgent(agent);
+            }
+        }
+        selectAgent(agent) {
+            this.selectedAgent = agent;
+            this.renderAgents(); // Rerender para mostrar selección
+            this.renderCodeDiff(agent);
+        }
+        renderCodeDiff(agent) {
+            const parent = this.agents.find(p => p.id === agent.parent);
+            const parentCode = parent ? parent.code : "// Código base inicial\nfunction solve() {\n  return 42;\n}";
+            
+            const diffHtml = this.generateDiffHtml(parentCode, agent.code);
+            this.dom.codeViewer.innerHTML = `<h4>Evolución de ${agent.id.slice(0,12)}</h4>${diffHtml}`;
+        }
+        generateBaseCode() { return `function problemSolver(input) {\n  let result = input * ${Math.random().toFixed(2)};\n  // Costo computacional\n  for(let i=0; i<100; i++);\n  return result;\n}`; }
+        mutateCode(parentCode) {
+            let lines = parentCode.split('\n');
+            const mutationType = Math.random();
+            if (mutationType < 0.5 && lines.length > 2) { // Modificar línea
+                const lineIndex = Math.floor(Math.random() * (lines.length - 2)) + 1;
+                lines[lineIndex] = lines[lineIndex].replace(/\d\.\d+/, Math.random().toFixed(2));
+            } else { // Añadir línea
+                lines.splice(2, 0, `  let tempVar = ${Math.random().toFixed(3)};`);
+            }
+            return lines.join('\n');
+        }
+        generateDiffHtml(oldStr, newStr) {
+            const oldLines = oldStr.split('\n'); const newLines = newStr.split('\n');
+            let html = '';
+            newLines.forEach(line => {
+                if (oldLines.includes(line)) {
+                    html += `<div class="code-line">${line}</div>`;
+                } else {
+                    html += `<div class="code-line added">+ ${line}</div>`;
+                }
+            });
+            return html;
+        }
+
+        // --- Métricas y Gráficos ---
+        initializeChart() {
+            const ctx = document.createElement('canvas');
+            document.getElementById('chart-container').appendChild(ctx);
+            this.chart = new Chart(ctx, {
+                type: 'line',
+                data: { labels: [], datasets: [
+                    { label: 'Mejor Rendimiento', data: [], borderColor: '#00d4ff', tension: 0.3, fill: false },
+                    { label: 'Rendimiento Promedio', data: [], borderColor: '#a29bfe', tension: 0.3, fill: false }
+                ]},
+                options: { responsive: true, maintainAspectRatio: false, color: 'white' }
+            });
+        }
+        updateAllMetrics() {
+            document.getElementById('current-generation').textContent = this.generation;
+            document.getElementById('total-agents').textContent = this.agents.length;
+            document.getElementById('viable-agents').textContent = this.agents.filter(a => a.viable).length;
+            document.getElementById('best-performance').textContent = this.bestAgent ? `${this.bestAgent.performance.toFixed(0)}%` : '0%';
+
+            // DGM Metrics (simuladas)
+            const lastHistory = this.evolutionHistory.slice(-1)[0] || {};
+            document.getElementById('improvement-velocity').style.width = `${(lastHistory.improvement || 0) * 20}%`;
+            document.getElementById('self-modification-rate').style.width = `${Math.random() * 60 + 20}%`;
+            
+            // Convergencia
+            const convergence = this.calculateConvergence();
+            document.getElementById('convergence-index').style.width = `${convergence.index}%`;
+            document.getElementById('convergence-status').textContent = convergence.status;
+
+            // Actualizar gráfico
+            this.chart.data.labels = this.evolutionHistory.map(h => `G${h.gen}`);
+            this.chart.data.datasets[0].data = this.evolutionHistory.map(h => h.best);
+            this.chart.data.datasets[1].data = this.evolutionHistory.map(h => h.avg);
+            this.chart.update('none');
+        }
+        updateEvolutionHistory() {
+            const viableAgents = this.agents.filter(a => a.viable);
+            const avgPerf = viableAgents.length > 0 ? viableAgents.reduce((s, a) => s + a.performance, 0) / viableAgents.length : 0;
+            const lastBest = this.evolutionHistory.slice(-1)[0]?.best || 0;
+            
+            this.evolutionHistory.push({
+                gen: this.generation,
+                best: this.bestAgent ? this.bestAgent.performance : 0,
+                avg: avgPerf,
+                improvement: (this.bestAgent ? this.bestAgent.performance : 0) - lastBest
+            });
+        }
+        calculateConvergence() {
+            if (this.evolutionHistory.length < 5) return { status: 'INICIALIZANDO', index: 0 };
+            const recentImprovements = this.evolutionHistory.slice(-5).map(h => h.improvement);
+            const avgImprovement = recentImprovements.reduce((s, v) => s + v, 0) / recentImprovements.length;
+            if (avgImprovement < 0.5) return { status: 'CONVERGIENDO', index: 80 + avgImprovement * 20 };
+            if (avgImprovement < 2) return { status: 'OPTIMIZANDO', index: 40 + avgImprovement * 20 };
+            return { status: 'EXPLORANDO', index: Math.min(40, avgImprovement * 10) };
+        }
+        
+        reset() {
+            this.isRunning = false; this.dom.startBtn.textContent = '▶ Iniciar';
+            this.agents = []; this.generation = 0;
+            this.bestAgent = null; this.selectedAgent = null;
+            this.evolutionHistory = [];
+            this.dom.codeViewer.innerHTML = '<p style="text-align: center; margin-top: 50px; color: #aaa;">Sistema reiniciado.</p>';
+            this.createInitialPopulation();
+            this.updateDisplay();
+        }
+
+        updateStatus(msg) { document.getElementById('status').textContent = msg; }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        new DarwinGodelMachine();
+    });
+    </script>
+</body>
+</html>
