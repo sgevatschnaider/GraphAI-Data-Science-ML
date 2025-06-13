@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualización de la Darwin Gödel Machine (DGM)</title>
+    <style>
+        /* --- General Styles & Theme --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        
+        :root {
+            --bg-color: #1a1a2e;
+            --card-bg: #16213e;
+            --primary-color: #0f3460;
+            --accent-color: #e94560;
+            --text-color: #e0e0e0;
+            --text-muted: #a0a0c0;
+            --highlight-color: #53a8b6;
+            --green-glow: #39ff14;
+            --border-color: rgba(83, 168, 182, 0.4);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        h1, h2 {
+            color: var(--accent-color);
+            text-shadow: 0 0 5px rgba(233, 69, 96, 0.5);
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        /* --- Main Diagram Layout --- */
+        .diagram-container {
+            display: grid;
+            grid-template-areas:
+                "archive archive archive"
+                "select evaluate add"
+                "concepts concepts concepts";
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+            width: 100%;
+            max-width: 1200px;
+            position: relative;
+        }
+        
+        /* --- Card Styles --- */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(83, 168, 182, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 15px var(--highlight-color);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--highlight-color);
+            font-size: 1.4rem;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+            filter: drop-shadow(0 0 4px var(--accent-color));
+        }
+
+        /* --- Grid Area Assignments --- */
+        #archive-card { grid-area: archive; }
+        #select-card { grid-area: select; }
+        #evaluate-card { grid-area: evaluate; }
+        #add-card { grid-area: add; }
+        #concepts-card { grid-area: concepts; display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+
+        #archive-card .icon { color: var(--green-glow); filter: drop-shadow(0 0 4px var(--green-glow));}
+
+        /* --- Arrow Connectors (SVG) --- */
+        .arrows {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .arrow {
+            stroke: var(--highlight-color);
+            stroke-width: 2.5;
+            fill: none;
+            stroke-dasharray: 8, 4;
+            animation: dash 1s linear infinite;
+        }
+        
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -12;
+            }
+        }
+
+        /* --- Key Concepts & Interactivity --- */
+        .concept-btn {
+            background: var(--primary-color);
+            border: 1px solid var(--highlight-color);
+            color: var(--text-color);
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .concept-btn:hover {
+            background-color: var(--highlight-color);
+            color: var(--card-bg);
+            transform: scale(1.05);
+        }
+
+        /* --- Modal Styles --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-content {
+            background-color: var(--card-bg);
+            margin: 10% auto;
+            padding: 2.5rem;
+            border: 1px solid var(--highlight-color);
+            border-radius: 12px;
+            width: 80%;
+            max-width: 700px;
+            position: relative;
+            box-shadow: 0 0 30px var(--highlight-color);
+        }
+
+        .close-btn {
+            color: var(--text-muted);
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: var(--accent-color);
+        }
+        
+        .modal h2 {
+           font-size: 2rem;
+           margin-top: 0;
+        }
+        
+        .modal p {
+           color: var(--text-color);
+           line-height: 1.6;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Darwin Gödel Machine (DGM)</h1>
+    <p class="subtitle">Un sistema de IA que evoluciona y se mejora a sí mismo de forma abierta y continua.</p>
+
+    <div class="diagram-container">
+        
+        <!-- SVG Arrows -->
+        <svg class="arrows">
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="var(--highlight-color)" />
+                </marker>
+            </defs>
+            <!-- From Archive to Select -->
+            <path class="arrow" d="M 50% 120 C 16.6% 120, 16.6% 250, 16.6% 250" marker-end="url(#arrowhead)"></path>
+            <!-- Select -> Self-Modify (implicit) -> Evaluate -->
+            <path class="arrow" d="M 33% 380 C 41.5% 380, 41.5% 380, 50% 380" marker-end="url(#arrowhead)"></path>
+            <!-- Evaluate -> Add -->
+            <path class="arrow" d="M 66% 380 C 74.5% 380, 74.5% 380, 83.3% 380" marker-end="url(#arrowhead)"></path>
+            <!-- Add -> Archive -->
+            <path class="arrow" d="M 83.3% 250 C 83.3% 250, 83.3% 120, 50% 120" marker-end="url(#arrowhead)"></path>
+        </svg>
+
+        <!-- Archive Card -->
+        <div id="archive-card" class="card">
+            <div class="icon">🧬</div>
+            <h3>1. El Archivo (La Población)</h3>
+            <p>La DGM mantiene un archivo de todos los agentes de código generados. Es un "pool genético" de soluciones diversas. Se inicia con un único agente base.</p>
+        </div>
+
+        <!-- Main Loop Cards -->
+        <div id="select-card" class="card">
+            <div class="icon">🎯</div>
+            <h3>2. Selección (Darwiniana)</h3>
+            <p>Se selecciona un agente "padre" del archivo. La selección favorece a los agentes con buen rendimiento pero también a los que son novedosos, permitiendo la exploración abierta y evitando estancarse en óptimos locales.</p>
+        </div>
+        
+        <div id="evaluate-card" class="card">
+            <div class="icon">💡</div>
+            <h3>3. Auto-Modificación (Gödel)</h3>
+            <p>El agente "padre" recibe la instrucción de mejorarse a sí mismo. Analiza su propio código fuente y genera un parche para añadir nuevas capacidades o herramientas. Este proceso crea un nuevo agente "hijo".</p>
+        </div>
+
+        <div id="add-card" class="card">
+            <div class="icon">📊</div>
+            <h3>4. Evaluación Empírica</h3>
+            <p>El nuevo agente "hijo" se evalúa en un benchmark de programación (ej. SWE-bench). Su rendimiento se mide objetivamente. A diferencia de la máquina de Gödel teórica, no se usan pruebas formales, sino validación empírica.</p>
+        </div>
+
+        <!-- Concepts Card -->
+        <div id="concepts-card" class="card">
+            <h3>Conceptos Fundamentales</h3>
+            <button class="concept-btn" onclick="openModal('agent-modal')">¿Qué es un Agente?</button>
+            <button class="concept-btn" onclick="openModal('fm-modal')">Foundation Models (FM)</button>
+            <button class="concept-btn" onclick="openModal('open-ended-modal')">Exploración Abierta</button>
+            <button class="concept-btn" onclick="openModal('safety-modal')">Seguridad</button>
+        </div>
+    </div>
+    
+    <!-- Modals -->
+    <div id="agent-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('agent-modal')">×</span>
+            <h2>🤖 ¿Qué es un Agente?</h2>
+            <p>En el contexto de la DGM, un agente es un sistema autónomo implementado como un repositorio de código (Python en este caso). Su "cerebro" es un Modelo de Lenguaje Grande (FM) que está congelado (no se re-entrena).</p>
+            <p>El agente tiene la capacidad de:
+                <ul>
+                    <li><strong>Leer:</strong> Analizar su propio código y los problemas del benchmark.</li>
+                    <li><strong>Escribir:</strong> Modificar su código para añadir nuevas herramientas o mejorar su lógica.</li>
+                    <li><strong>Ejecutar:</strong> Usar herramientas (como una terminal Bash o un editor) para interactuar con su entorno y resolver tareas de programación.</li>
+                </ul>
+            La tarea de "auto-mejora" es, fundamentalmente, una tarea de programación donde el objetivo es su propio código fuente.
+            </p>
+        </div>
+    </div>
+    
+    <div id="fm-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('fm-modal')">×</span>
+            <h2>🧠 Foundation Models (FM)</h2>
+            <p>Son modelos de lenguaje grandes (LLMs) como Claude o GPT, que sirven como el componente de razonamiento del agente. La DGM utiliza FMs para:</p>
+             <ul>
+                <li><strong>Generar soluciones:</strong> Escribir el código para resolver los problemas de los benchmarks.</li>
+                <li><strong>Diagnosticar fallos:</strong> Analizar los logs de evaluación de un agente para entender por qué falló.</li>
+                <li><strong>Proponer mejoras:</strong> Basado en el diagnóstico, sugerir una nueva característica o herramienta para implementarse a sí mismo (la instrucción de auto-mejora).</li>
+                <li><strong>Implementar mejoras:</strong> Escribir el código que modifica su propia base de código para implementar la mejora propuesta.</li>
+            </ul>
+             <p>El paper utiliza modelos congelados, lo que significa que las mejoras no provienen de re-entrenar el modelo, sino de mejorar el "andamiaje" de código (herramientas, prompts, flujos de trabajo) que lo rodea.</p>
+        </div>
+    </div>
+
+    <div id="open-ended-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('open-ended-modal')">×</span>
+            <h2>🌌 Exploración Abierta (Open-Endedness)</h2>
+            <p>Este es el pilar "Darwiniano" de la DGM y su principal diferencia con otros sistemas. En lugar de seguir un camino de mejora lineal (mejorar siempre la mejor versión), la DGM mantiene un archivo de todas las variantes.</p>
+            <p>Esto permite:
+                <ul>
+                    <li><strong>Diversidad:</strong> Explora simultáneamente múltiples "linajes" de agentes.</li>
+                    <li><strong>Superar Óptimos Locales:</strong> Un agente que tiene un rendimiento ligeramente peor podría tener una innovación clave (un "stepping stone") que, generaciones más tarde, conduzca a un avance mucho mayor.</li>
+                    <li><strong>Creatividad Continua:</strong> El sistema nunca deja de buscar nuevas y diversas formas de mejorar, imitando el proceso acumulativo y sin fin de la ciencia y la evolución biológica.</li>
+                </ul>
+            El resultado es un "árbol de innovación" en constante crecimiento, en lugar de una sola línea de progreso.
+            </p>
+        </div>
+    </div>
+    
+    <div id="safety-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('safety-modal')">×</span>
+            <h2>🛡️ Consideraciones de Seguridad</h2>
+            <p>Un sistema que se modifica a sí mismo introduce riesgos de seguridad únicos. Los autores del paper tomaron precauciones importantes:</p>
+             <ul>
+                <li><strong>Sandboxing:</strong> Todas las ejecuciones de los agentes se realizan en entornos aislados (sandboxes), limitando su capacidad para afectar al sistema anfitrión.</li>
+                <li><strong>Límites de Recursos:</strong> Cada ejecución tiene un tiempo límite estricto para evitar bucles infinitos o consumo excesivo de recursos.</li>
+                <li><strong>Dominio Confinado:</strong> La auto-mejora se limita a modificar su propio código Python con el objetivo de mejorar en benchmarks de programación. No tiene acceso a internet ni a otros sistemas.</li>
+                <li><strong>Trazabilidad:</strong> El archivo de agentes proporciona un linaje completo y auditable de cada modificación, permitiendo a los investigadores revisar los cambios.</li>
+            </ul>
+            <p>A futuro, se sugiere que la propia DGM podría ser utilizada para mejorar su propia seguridad e interpretabilidad si se incluyen estas métricas en su función de evaluación.</p>
+        </div>
+    </div>
+    
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Close modal if user clicks outside of the modal content
+        window.onclick = function(event) {
+            const modals = document.getElementsByClassName('modal');
+            for (let i = 0; i < modals.length; i++) {
+                if (event.target == modals[i]) {
+                    modals[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
