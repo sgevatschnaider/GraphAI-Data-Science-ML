@@ -257,7 +257,7 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 | **Método Metaheurístico: Algoritmo Genético y el Problema del Viajante** | [![Ver en GitHub](https://img.shields.io/badge/Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/1b858e3dc01de2e703f2dd72f770c4d010ea78aa/notebooks/M%C3%A9todo_metaeur%C3%ADstico_Algoritmo_gen%C3%A9tico_y_el_problema_del_viajante_ipynb.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sgevatschnaider/GraphAI-Data-Science-ML/blob/1b858e3dc01de2e703f2dd72f770c4d010ea78aa/notebooks/M%C3%A9todo_metaeur%C3%ADstico_Algoritmo_gen%C3%A9tico_y_el_problema_del_viajante_ipynb.ipynb) |
 
 
-# 📝 Clase 4: Darwin Gödel Machine (DGM)
+# 📝 Material de Investigación: Darwin Gödel Machine (DGM)
 
 ## 📊 Modelos Visuales: *Darwin Gödel Machine*
 
