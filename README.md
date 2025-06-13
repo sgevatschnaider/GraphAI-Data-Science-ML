@@ -282,8 +282,6 @@ Este repositorio contiene recursos utilizados y generados durante el proceso de 
 
 | 🎥 Nombre | 🖼️ Visualizar GIF |
 |----------|-------------------|
-| **Neon** | ![Neon](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/981f9fe2ea2938dc43b90302b90d9a12edea9d0c/notebooks/Neon.gif?raw=true) |
-| **DGM** | ![DGM](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/981f9fe2ea2938dc43b90302b90d9a12edea9d0c/notebooks/DGM.gif?raw=true) |
 | **DGM2** | ![DGM2](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/981f9fe2ea2938dc43b90302b90d9a12edea9d0c/notebooks/DGM2.gif?raw=true) |
 
 ---
