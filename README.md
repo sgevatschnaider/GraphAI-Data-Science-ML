@@ -256,6 +256,55 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 | ---------- | -------- |
 | **Método Metaheurístico: Algoritmo Genético y el Problema del Viajante** | [![Ver en GitHub](https://img.shields.io/badge/Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/1b858e3dc01de2e703f2dd72f770c4d010ea78aa/notebooks/M%C3%A9todo_metaeur%C3%ADstico_Algoritmo_gen%C3%A9tico_y_el_problema_del_viajante_ipynb.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sgevatschnaider/GraphAI-Data-Science-ML/blob/1b858e3dc01de2e703f2dd72f770c4d010ea78aa/notebooks/M%C3%A9todo_metaeur%C3%ADstico_Algoritmo_gen%C3%A9tico_y_el_problema_del_viajante_ipynb.ipynb) |
 
+
+¡Hecho! ✔️ Acabo de reemplazar el título solicitado con **"Darwin Gödel Machine"** en la sección correspondiente del Markdown. Aquí te dejo la versión actualizada, lista para usar:
+
+---
+
+```markdown
+# 📚 Material de Investigación
+
+Este repositorio contiene recursos utilizados y generados durante el proceso de investigación en GraphAI, Data Science y Machine Learning. A continuación se presentan los notebooks, visualizaciones interactivas y animaciones generadas, con acceso directo para su revisión en GitHub y ejecución en Google Colab.
+
+---
+
+## Notebooks y Modelos
+
+| 📄 Recurso | 📥 Acceso |
+|-----------|-----------|
+| **Darwin Gödel Machine** | [![Ver en GitHub](https://img.shields.io/badge/Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/1b858e3dc01de2e703f2dd72f770c4d010ea78aa/notebooks/M%C3%A9todo_metaeur%C3%ADstico_Algoritmo_gen%C3%A9tico_y_el_problema_del_viajante_ipynb.ipynb) [![Abrir en Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sgevatschnaider/GraphAI-Data-Science-ML/blob/1b858e3dc01de2e703f2dd72f770c4d010ea78aa/notebooks/M%C3%A9todo_metaeur%C3%ADstico_Algoritmo_gen%C3%A9tico_y_el_problema_del_viajante_ipynb.ipynb) |
+
+---
+
+## 🌐 Visualizaciones Interactivas (HTML)
+
+| 📊 Diagrama | 🔗 Ver archivo HTML |
+|------------|----------------------|
+| **DGM11** | [🔍 DGM11.html](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/57cd6a43d37590b6f96d5e314c2f4a94c61730f2/notebooks/DGM11.html) |
+| **Diagrama Paper** | [📘 diagrama_paper.html](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/57cd6a43d37590b6f96d5e314c2f4a94c61730f2/notebooks/diagrama%20paper.html) |
+| **Diagram 4** | [📘 diagram4.html](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/451d5ea2656a472eff85214c35288c9f9a90c6be/notebooks/diagram4.html) |
+
+---
+
+## 🎞️ Animaciones y Gráficos Dinámicos
+
+| 🎥 Nombre | 🖼️ Visualizar GIF |
+|----------|-------------------|
+| **Neon** | ![Neon](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/981f9fe2ea2938dc43b90302b90d9a12edea9d0c/notebooks/Neon.gif?raw=true) |
+| **DGM** | ![DGM](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/981f9fe2ea2938dc43b90302b90d9a12edea9d0c/notebooks/DGM.gif?raw=true) |
+| **DGM2** | ![DGM2](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/981f9fe2ea2938dc43b90302b90d9a12edea9d0c/notebooks/DGM2.gif?raw=true) |
+
+---
+
+📌 *Este contenido forma parte de un proyecto mayor de investigación aplicada en ciencia de datos, inteligencia artificial y grafos.*  
+🔗 **Repositorio completo:** [GraphAI-Data-Science-ML](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML)
+```
+
+---
+
+
+
+
 ## Acceso al Material Educativo
 
 **Este repositorio es solo de lectura para los estudiantes.**  
