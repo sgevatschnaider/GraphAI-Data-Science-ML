@@ -321,8 +321,7 @@ La **Darwin Gödel Machine** representa un paradigma innovador que combina:
 
 **🔗 Enlaces Rápidos**
 
-[📚 Repositorio Principal](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML) | [📝 Blog Completo](https://economiayetica.blogspot.com/2025/06/la-maquina-que-se-reescribe-explorando.html) | [🔬 Colab Interactivo](https://colab.research.google.com/drive/1V0ODsPGihaMgLFV-JpBGZDEhPmynbeVk?usp=sharing)
-
+[📚 Repositorio Principal](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML) | [📝 Blog Completo](https://economiayetica.blogspot.com/2025/06/la-maquina-que-se-reescribe-explorando.html) | 
 </div>
 
 ## Acceso al Material Educativo
