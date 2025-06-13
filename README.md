@@ -260,15 +260,13 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 
 # 📚 Material de Investigación
 
-## Notebooks y Modelos
-
-| 📄 Recurso | 📥 Acceso |
-|-----------|-----------|
-| **Darwin Gödel Machine** | [![Ver en GitHub](https://img.shields.io/badge/Ver%20en-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/1b858e3dc01de2e703f2dd72f770c4d010ea78aa/notebooks/M%C3%A9todo_metaeur%C3%ADstico_Algoritmo_gen%C3%A9tico_y_el_problema_del_viajante_ipynb.ipynb) [![Abrir en Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sgevatschnaider/GraphAI-Data-Science-ML/blob/1b858e3dc01de2e703f2dd72f770c4d010ea78aa/notebooks/M%C3%A9todo_metaeur%C3%ADstico_Algoritmo_gen%C3%A9tico_y_el_problema_del_viajante_ipynb.ipynb) |
+Este repositorio contiene recursos utilizados y generados durante el proceso de investigación en GraphAI, Data Science y Machine Learning. A continuación se presentan los modelos teóricos, visualizaciones interactivas y animaciones dinámicas vinculadas al marco conceptual de la **Darwin Gödel Machine**.
 
 ---
 
-## 🌐 Visualizaciones Interactivas (HTML)
+## Modelos Visuales: *Darwin Gödel Machine*
+
+> Representaciones visuales e interactivas sobre conceptos relacionados con aprendizaje, lógica y teoría evolutiva aplicada al modelado de información y toma de decisiones.
 
 | 📊 Diagrama | 🔗 Ver archivo HTML |
 |------------|----------------------|
@@ -276,7 +274,20 @@ Puedes abrir y ejecutar los notebooks en Google Colab directamente desde aquí:
 | **Diagrama Paper** | [📘 diagrama_paper.html](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/57cd6a43d37590b6f96d5e314c2f4a94c61730f2/notebooks/diagrama%20paper.html) |
 | **Diagram 4** | [📘 diagram4.html](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/451d5ea2656a472eff85214c35288c9f9a90c6be/notebooks/diagram4.html) |
 
+📝 *Estos archivos HTML están diseñados para visualización estática y no requieren entorno de ejecución (como Colab o Jupyter).*
+
 ---
+
+## 🎞️ Animaciones y Gráficos Dinámicos
+
+| 🎥 Nombre | 🖼️ Visualizar GIF |
+|----------|-------------------|
+| **Neon** | ![Neon](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/981f9fe2ea2938dc43b90302b90d9a12edea9d0c/notebooks/Neon.gif?raw=true) |
+| **DGM** | ![DGM](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/981f9fe2ea2938dc43b90302b90d9a12edea9d0c/notebooks/DGM.gif?raw=true) |
+| **DGM2** | ![DGM2](https://github.com/sgevatschnaider/GraphAI-Data-Science-ML/blob/981f9fe2ea2938dc43b90302b90d9a12edea9d0c/notebooks/DGM2.gif?raw=true) |
+
+---
+
 
 ## Acceso al Material Educativo
 
