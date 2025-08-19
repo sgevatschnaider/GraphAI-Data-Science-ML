@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Modelo Erdős–Rényi - Visualización Dinámica</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: white; min-height: 100vh; overflow-x: hidden;
+    }
+    .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+    .header {
+      text-align: center; margin-bottom: 30px; padding: 20px;
+      background: rgba(255,255,255,0.05); border-radius: 20px;
+      backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1);
+    }
+    .header h1 {
+      font-size: 2.2rem; margin-bottom: 8px;
+      background: linear-gradient(45deg, #60a5fa, #34d399, #fbbf24);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    }
+    .main-content {
+      display: grid; grid-template-columns: 1fr 360px; gap: 20px; height: 80vh;
+    }
+    .visualization-panel, .controls-panel {
+      background: rgba(255,255,255,0.05); border-radius: 20px; padding: 20px;
+      backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1);
+    }
+    .visualization-panel { position: relative; overflow: hidden; }
+    .canvas-container { position: relative; width:100%; height:100%; border-radius:15px; overflow:hidden; }
+    #graphCanvas {
+      width:100%; height:100%;
+      background: radial-gradient(circle at center, #1e3a8a 0%, #0f172a 100%);
+      border-radius: 15px;
+    }
+    .control-section { margin-bottom: 24px; }
+    .control-section h3 {
+      color:#60a5fa; margin-bottom: 12px; font-size: 1.05rem; font-weight: 600;
+    }
+    .probability-slider {
+      width: 100%; height: 8px; border-radius: 4px;
+      background: linear-gradient(90deg, #1e40af 0%, #fbbf24 50%, #ef4444 100%);
+      outline: none; -webkit-appearance: none; margin: 8px 0;
+    }
+    .probability-slider::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%;
+      background: white; cursor: pointer; box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    .probability-value { text-align:center; font-size:1.3rem; font-weight:700; color:#60a5fa; margin: 6px 0 2px; }
+    .phase-buttons { display:grid; grid-template-columns:1fr; gap:8px; }
+    .phase-btn {
+      padding: 11px; border:none; border-radius:10px; cursor:pointer; font-weight:600; font-size:.9rem;
+      transition: all .25s ease; backdrop-filter: blur(5px); opacity:.75;
+    }
+    .phase-btn.subcritical { background: linear-gradient(135deg, #1e40af, #3b82f6); color:white; }
+    .phase-btn.critical    { background: linear-gradient(135deg, #b45309, #f59e0b); color:white; }
+    .phase-btn.supercritical{background: linear-gradient(135deg, #b91c1c, #ef4444); color:white;}
+    .phase-btn.connected   { background: linear-gradient(135deg, #059669, #10b981); color:white; }
+    .phase-btn:hover { transform: translateY(-2px); box-shadow:0 8px 25px rgba(0,0,0,.3); }
+    .animation-controls { display:flex; gap:10px; }
+    .control-btn {
+      flex:1; padding:12px; border:none; border-radius:10px; cursor:pointer; font-weight:700;
+      transition: all .25s ease;
+    }
+    .play-btn  { background: linear-gradient(135deg, #059669, #10b981); color:white; }
+    .pause-btn { background: linear-gradient(135deg, #b45309, #f59e0b); color:white; }
+    .reset-btn { background: linear-gradient(135deg, #6b7280, #9ca3af); color:white; }
+    .control-btn:hover { transform: translateY(-2px); box-shadow:0 5px 15px rgba(0,0,0,.3); }
+
+    .stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .stat-item { background: rgba(255,255,255,0.1); padding:12px; border-radius:10px; text-align:center; border:1px solid rgba(255,255,255,.1); }
+    .stat-value { font-size:1.25rem; font-weight:800; color:#60a5fa; }
+    .stat-label { font-size:.8rem; opacity:.85; margin-top:3px; }
+
+    .theory-section {
+      background: rgba(255,255,255,0.05); border-radius:15px; padding: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .theory-section h4 { color:#fbbf24; margin-bottom: 8px; font-size: 1rem; }
+    .theory-section p { font-size:.9rem; line-height:1.35; opacity:.95; }
+    .threshold-info {
+      background: linear-gradient(135deg, rgba(96,165,250,.1), rgba(52,211,153,.1));
+      border-radius: 10px; padding:10px; margin-top:10px; border:1px solid rgba(96,165,250,.3);
+      font-size: .9rem;
+    }
+    .legend { display:flex; flex-wrap:wrap; gap:10px; margin-top: 10px; }
+    .legend-item { display:flex; align-items:center; gap:6px; font-size:.85rem; }
+    .legend-color { width:12px; height:12px; border-radius:50%; }
+    @media (max-width:1200px){
+      .main-content{ grid-template-columns:1fr; height:auto; }
+      .controls-panel{ order:-1; }
+      .visualization-panel{ height: 60vh; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Modelo Erdős–Rényi</h1>
+      <p>Visualización dinámica de transiciones de fase en grafos aleatorios</p>
+    </div>
+
+    <div class="main-content">
+      <div class="visualization-panel">
+        <div class="canvas-container">
+          <canvas id="graphCanvas"></canvas>
+        </div>
+      </div>
+
+      <div class="controls-panel">
+        <div class="control-section">
+          <h3>Control de probabilidad</h3>
+          <input type="range" id="probabilitySlider" class="probability-slider" min="0" max="0.3" step="0.001" value="0.02"/>
+          <div class="probability-value" id="probabilityValue">p = 0.020</div>
+        </div>
+
+        <div class="control-section">
+          <h3>Fases</h3>
+          <div class="phase-buttons">
+            <button class="phase-btn subcritical" data-phase="subcritical">Subcrítica (p < 1/n)</button>
+            <button class="phase-btn critical" data-phase="critical">Crítica (p ≈ 1/n)</button>
+            <button class="phase-btn supercritical" data-phase="supercritical">Supercrítica (p > 1/n)</button>
+            <button class="phase-btn connected" data-phase="connected">Conectado (p > ln(n)/n)</button>
+          </div>
+        </div>
+
+        <div class="control-section">
+          <h3>Animación</h3>
+          <div class="animation-controls">
+            <button class="control-btn play-btn" id="playBtn">Animar</button>
+            <button class="control-btn reset-btn" id="resetBtn">Reset</button>
+          </div>
+        </div>
+
+        <div class="control-section">
+          <h3>Estadísticas</h3>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-value" id="nodeCount">50</div>
+              <div class="stat-label">Nodos</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="edgeCount">0</div>
+              <div class="stat-label">Aristas</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="componentCount">50</div>
+              <div class="stat-label">Componentes</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="largestComponent">1</div>
+              <div class="stat-label">Mayor comp.</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="isConnected">No</div>
+              <div class="stat-label">Conexo</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="expectedEdges">0.0</div>
+              <div class="stat-label">E[m] = p·C(n,2)</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="giantFrac">0.00</div>
+              <div class="stat-label">α estimada</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="control-section">
+          <div class="theory-section">
+            <h4>Teoría</h4>
+            <p id="theoryText">
+              En la fase subcrítica (p < 1/n) sólo hay componentes pequeñas de tamaño O(log n). No existe componente gigante.
+            </p>
+            <div class="threshold-info">
+              <strong>Umbral crítico:</strong> p = 1/n ≈ <span id="criticalThreshold">0.020</span><br/>
+              <strong>Umbral de conexidad:</strong> p ≈ ln(n)/n ≈ <span id="connectivityThreshold">0.078</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="legend">
+          <div class="legend-item"><div class="legend-color" style="background:#60a5fa;"></div><span>Nodos</span></div>
+          <div class="legend-item"><div class="legend-color" style="background:#10b981;"></div><span>Componente mayor</span></div>
+          <div class="legend-item"><div class="legend-color" style="background:#fbbf24;"></div><span>Otras componentes</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    class ErdosRenyiVisualizer {
+      constructor() {
+        this.canvas = document.getElementById('graphCanvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.nodes = [];
+        this.edges = [];
+        this.isAnimating = false;
+        this.animationId = null;
+        this.n = 50;              // número de nodos
+        this.probability = 0.02;  // p inicial
+
+        this.setupCanvas();
+        this.generateNodes();
+        this.generateGraph();
+        this.drawGraph();
+        this.setupEventListeners();
+
+        this.colors = ['#10b981','#ef4444','#f59e0b','#8b5cf6','#06b6d4','#84cc16','#f97316','#ec4899','#6366f1','#14b8a6'];
+      }
+
+      setupCanvas() {
+        const rect = this.canvas.getBoundingClientRect();
+        this.canvas.width = rect.width * window.devicePixelRatio;
+        this.canvas.height = rect.height * window.devicePixelRatio;
+        this.ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+        this.width = rect.width;
+        this.height = rect.height;
+      }
+
+      generateNodes() {
+        this.nodes = [];
+        const cx = this.width/2, cy = this.height/2;
+        const R = Math.min(this.width, this.height) * 0.35;
+        for (let i=0;i<this.n;i++){
+          const ang = (2*Math.PI*i)/this.n;
+          const r = R + (Math.random()-0.5)*40;
+          this.nodes.push({
+            id:i, x: cx + Math.cos(ang)*r, y: cy + Math.sin(ang)*r,
+            vx: (Math.random()-0.5)*0.5, vy:(Math.random()-0.5)*0.5,
+            component: i, size: 6 + Math.random()*3
+          });
+        }
+        document.getElementById('nodeCount').textContent = this.n;
+      }
+
+      generateGraph() {
+        this.edges = [];
+        for (let i=0;i<this.n;i++){
+          for (let j=i+1;j<this.n;j++){
+            if (Math.random() < this.probability){
+              this.edges.push({source:i, target:j});
+            }
+          }
+        }
+        this.findComponents();
+        this.updateStats();
+        this.updateTheory();
+      }
+
+      findComponents() {
+        const parent = Array.from({length:this.n}, (_,i)=>i);
+        const find = x => parent[x]===x ? x : (parent[x]=find(parent[x]));
+        const unite = (a,b) => { a=find(a); b=find(b); if(a!==b) parent[a]=b; };
+
+        for (const e of this.edges) unite(e.source, e.target);
+        for (const node of this.nodes) node.component = find(node.id);
+      }
+
+      updateStats() {
+        const comps = new Map();
+        for (const node of this.nodes) comps.set(node.component, (comps.get(node.component)||0)+1);
+        const sizes = Array.from(comps.values());
+        const largest = sizes.length ? Math.max(...sizes) : 0;
+        const connected = comps.size===1 && this.n>0;
+
+        const m = this.edges.length;
+        const n = this.n;
+        const p = this.probability;
+        const expectedM = p * (n*(n-1)/2);
+
+        // Estimación de fracción de la gigante α resolviendo α = 1 - e^{-c α}
+        // Sólo tiene solución no trivial cuando c = p n > 1.
+        const c = p * n;
+        let alpha = 0.0;
+        if (c > 1){
+          let a = 0.5; // inicial
+          for (let k=0;k<25;k++){
+            a = 1 - Math.exp(-c*a);
+          }
+          alpha = a;
+        }
+
+        document.getElementById('edgeCount').textContent = m;
+        document.getElementById('componentCount').textContent = comps.size;
+        document.getElementById('largestComponent').textContent = largest;
+        document.getElementById('isConnected').textContent = connected ? 'Sí' : 'No';
+        document.getElementById('expectedEdges').textContent = expectedM.toFixed(1);
+        document.getElementById('giantFrac').textContent = alpha.toFixed(2);
+      }
+
+      updateTheory() {
+        const n = this.n;
+        const p = this.probability;
+        const c = p*n;
+        const tau = Math.cbrt(1/n);              // n^{-1/3}
+        const pCrit = 1/n;
+        const pConn = Math.log(n)/n;
+
+        document.getElementById('criticalThreshold').textContent = pCrit.toFixed(3);
+        document.getElementById('connectivityThreshold').textContent = pConn.toFixed(3);
+
+        let text = '', phase = '';
+        if (c < 1 - tau) {
+          text = 'Fase subcrítica: componentes de tamaño O(log n). No hay componente gigante.';
+          phase = 'subcritical';
+        } else if (Math.abs(c - 1) <= tau) {
+          text = 'Ventana crítica: la mayor componente escala como n^{2/3}; aún no hay gigante.';
+          phase = 'critical';
+        } else if (c <= Math.log(n)) {
+          text = 'Fase supercrítica: aparece una componente gigante que contiene una fracción positiva de los nodos.';
+          phase = 'supercritical';
+        } else {
+          text = 'Régimen de conexidad: el grafo es conexo con alta probabilidad (desaparecen nodos aislados).';
+          phase = 'connected';
+        }
+        document.getElementById('theoryText').textContent = text;
+
+        document.querySelectorAll('.phase-btn').forEach(btn=>{
+          btn.style.opacity = (btn.dataset.phase===phase ? '1' : '0.6');
+        });
+      }
+
+      applyForces() {
+        const cx = this.width/2, cy = this.height/2;
+
+        // repulsión suave
+        for (let i=0;i<this.nodes.length;i++){
+          for (let j=i+1;j<this.nodes.length;j++){
+            const A = this.nodes[i], B = this.nodes[j];
+            const dx = A.x - B.x, dy = A.y - B.y;
+            const dist = Math.hypot(dx,dy) || 1e-6;
+            if (dist < 50){
+              const f = 0.1 / dist;
+              const ux = dx/dist, uy = dy/dist;
+              A.vx += ux*f; A.vy += uy*f;
+              B.vx -= ux*f; B.vy -= uy*f;
+            }
+          }
+        }
+
+        for (const node of this.nodes){
+          const dx = cx - node.x, dy = cy - node.y;
+          const dist = Math.hypot(dx,dy) || 1e-6;
+          if (dist > 200){
+            node.vx += (dx/dist)*0.01;
+            node.vy += (dy/dist)*0.01;
+          }
+          node.x += node.vx; node.y += node.vy;
+          node.vx *= 0.95; node.vy *= 0.95;
+
+          const margin = 20;
+          if (node.x < margin){ node.x = margin; node.vx = Math.abs(node.vx); }
+          if (node.x > this.width-margin){ node.x = this.width-margin; node.vx = -Math.abs(node.vx); }
+          if (node.y < margin){ node.y = margin; node.vy = Math.abs(node.vy); }
+          if (node.y > this.height-margin){ node.y = this.height-margin; node.vy = -Math.abs(node.vy); }
+        }
+      }
+
+      drawGraph() {
+        const ctx = this.ctx;
+        ctx.clearRect(0,0,this.width,this.height);
+
+        // mapa tamaños por componente
+        const compSizes = new Map();
+        for (const node of this.nodes){
+          compSizes.set(node.component, (compSizes.get(node.component)||0)+1);
+        }
+        const maxSize = compSizes.size ? Math.max(...compSizes.values()) : 0;
+
+        // aristas
+        ctx.lineWidth = 1.5;
+        ctx.strokeStyle = 'rgba(255,255,255,0.45)';
+        for (const e of this.edges){
+          const A = this.nodes[e.source], B = this.nodes[e.target];
+          ctx.beginPath(); ctx.moveTo(A.x,A.y); ctx.lineTo(B.x,B.y); ctx.stroke();
+        }
+
+        // nodos
+        for (const node of this.nodes){
+          const sizeComp = compSizes.get(node.component) || 1;
+          const isLargest = sizeComp === maxSize && maxSize > 1;
+
+          let color = '#60a5fa';
+          if (isLargest && maxSize > 1) color = '#10b981';
+          else if (sizeComp > 1) color = '#fbbf24';
+
+          const r = node.size + (sizeComp > maxSize*0.8 ? 3 : 0);
+
+          if (isLargest && maxSize > 5){ ctx.shadowColor = color; ctx.shadowBlur = 15; }
+          ctx.fillStyle = color;
+          ctx.beginPath(); ctx.arc(node.x, node.y, r, 0, 2*Math.PI); ctx.fill();
+          ctx.shadowBlur = 0;
+
+          ctx.strokeStyle = 'rgba(255,255,255,0.85)';
+          ctx.lineWidth = 1; ctx.stroke();
+        }
+      }
+
+      animate = () => {
+        if (!this.isAnimating) return;
+        this.applyForces();
+        this.drawGraph();
+        this.animationId = requestAnimationFrame(this.animate);
+      };
+
+      setupEventListeners() {
+        const slider = document.getElementById('probabilitySlider');
+        const probVal = document.getElementById('probabilityValue');
+        const playBtn = document.getElementById('playBtn');
+        const resetBtn = document.getElementById('resetBtn');
+
+        slider.addEventListener('input', e=>{
+          this.probability = Math.max(0, Math.min(0.3, parseFloat(e.target.value)));
+          probVal.textContent = `p = ${this.probability.toFixed(3)}`;
+          this.generateGraph();
+          this.drawGraph();
+        });
+
+        playBtn.addEventListener('click', ()=>{
+          this.isAnimating = !this.isAnimating;
+          if (this.isAnimating){
+            playBtn.textContent = 'Pausar';
+            playBtn.className = 'control-btn pause-btn';
+            this.animationId = requestAnimationFrame(this.animate);
+          } else {
+            playBtn.textContent = 'Animar';
+            playBtn.className = 'control-btn play-btn';
+            cancelAnimationFrame(this.animationId);
+          }
+        });
+
+        resetBtn.addEventListener('click', ()=>{
+          this.generateNodes();
+          this.generateGraph();
+          this.drawGraph();
+        });
+
+        document.querySelectorAll('.phase-btn').forEach(btn=>{
+          btn.addEventListener('click', ()=>{
+            const n = this.n;
+            const pCrit = 1/n;
+            const pConn = Math.log(n)/n;
+
+            const phase = btn.dataset.phase;
+            const phaseValues = {
+              'subcritical': Math.max(0.000, 0.5*pCrit),
+              'critical':    pCrit,
+              'supercritical': Math.min(3*pCrit, 0.3),
+              'connected':   Math.min(1.2*pConn, 0.3)
+            };
+            this.probability = phaseValues[phase];
+            slider.value = this.probability;
+            probVal.textContent = `p = ${this.probability.toFixed(3)}`;
+            this.generateGraph();
+            this.drawGraph();
+          });
+        });
+
+        window.addEventListener('resize', ()=>{
+          this.setupCanvas();
+          this.generateNodes();
+          this.generateGraph();
+          this.drawGraph();
+        });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', ()=>{ new ErdosRenyiVisualizer(); });
+  </script>
+</body>
+</html>
